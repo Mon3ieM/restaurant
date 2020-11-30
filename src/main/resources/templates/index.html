@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Product Manager</title>
+<style>
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+	<div align="center">
+		<h1>Product List</h1>
+		<a href="/new">Create New Product</a> <br /> <br />
+		<table border="1" cellpadding="10">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>isActive</th>
+					<th>userId</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product : ${listOrders}">
+					<td th:text="${product.isActive}">isActive</td>
+					<td th:text="${product.userId}">userId</td>
+
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="container" ng-app="sortApp" ng-controller="mainController">
+
+			<div class="alert alert-info">
+				<p>Sort Type: {{ sortType }}</p>
+				<p>Sort Reverse: {{ sortReverse }}</p>
+				<p>Search Query: {{ searchFish }}</p>
+			</div>
+
+			<form>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-addon">
+							<i class="fa fa-search"></i>
+						</div>
+						<input type="text" class="form-control"
+							placeholder="Search da Fish" ng-model="searchFish">
+					</div>
+				</div>
+			</form>
+
+			<table class="table table-bordered table-striped">
+
+
+				<tbody>
+					<tr th:each="product : ${listOrders}">
+						<td th:text="${product.isActive}">isActive</td>
+						<td th:text="${product.userId}">userId</td>
+
+					</tr>
+				</tbody>
+
+			</table>
+
+			<p class="text-center text-muted">
+				<a href="#" target="_blank">Read the Tutorial</a>
+			</p>
+
+			<p class="text-center">
+				by <a href="https://scotch.io" target="_blank">scotch.io</a>
+			</p>
+
+		</div>
+	</div>
+</body>
+</html>
