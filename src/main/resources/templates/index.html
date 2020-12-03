@@ -2,89 +2,57 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8" />
-<title>Product Manager</title>
-<style>
-table {
-	font-family: arial, sans-serif;
-	border-collapse: collapse;
-	width: 100%;
-}
-
-td, th {
-	border: 1px solid #dddddd;
-	text-align: left;
-	padding: 8px;
-}
-
-tr:nth-child(even) {
-	background-color: #dddddd;
-}
-</style>
+<title>امانة جدة</title>
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css"
+	type="text/css" />
+<link href="/resources/css/styles.css" rel="stylesheet" type="text/css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body>
-	<div align="center">
-		<h1>Product List</h1>
-		<a href="/new">Create New Product</a> <br /> <br />
-		<table border="1" cellpadding="10">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>isActive</th>
-					<th>userId</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="product : ${listOrders}">
-					<td th:text="${product.isActive}">isActive</td>
-					<td th:text="${product.userId}">userId</td>
 
-				</tr>
-			</tbody>
-		</table>
-
-		<div class="container" ng-app="sortApp" ng-controller="mainController">
-
-			<div class="alert alert-info">
-				<p>Sort Type: {{ sortType }}</p>
-				<p>Sort Reverse: {{ sortReverse }}</p>
-				<p>Search Query: {{ searchFish }}</p>
-			</div>
-
-			<form>
-				<div class="form-group">
-					<div class="input-group">
-						<div class="input-group-addon">
-							<i class="fa fa-search"></i>
-						</div>
-						<input type="text" class="form-control"
-							placeholder="Search da Fish" ng-model="searchFish">
-					</div>
+<body class="loginBody">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-8 loginBG"></div>
+			<div class="col-md-4 loginContainer">
+				<div class="loginHeader">
+					<img src="resources/images/logo.png" />
+					<h4>أمانة جدة</h4>
+					<p>نظام دعم اتخاذ القرار</p>
 				</div>
-			</form>
 
-			<table class="table table-bordered table-striped">
+				<form>
 
+					<div class="input-group mb-3" style="margin-top: 30px;">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="basic-addon1"><img
+								src="resources/images/userName.png"></span>
+						</div>
+						<input type="text" class="form-control" placeholder="اسم المستخدم"
+							th:value="*{username}" aria-label="Username" th:field="*{username}"
+							aria-describedby="basic-addon1">
+					</div>
 
-				<tbody>
-					<tr th:each="product : ${listOrders}">
-						<td th:text="${product.isActive}">isActive</td>
-						<td th:text="${product.userId}">userId</td>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="basic-addon1"><img
+								src="resources/images/pass.png"></span>
+						</div>
+						<input type="password" class="form-control" th:value="*{password}"
+							placeholder="كلمة السر" aria-label="Username" th:field="*{password}"
+							aria-describedby="basic-addon1">
+					</div>
 
-					</tr>
-				</tbody>
+					<button  type="submit"
+						class="btn btn-primary">تسجيل دخول</button>
+				</form>
 
-			</table>
-
-			<p class="text-center text-muted">
-				<a href="#" target="_blank">Read the Tutorial</a>
-			</p>
-
-			<p class="text-center">
-				by <a href="https://scotch.io" target="_blank">scotch.io</a>
-			</p>
-
+				<p class="footer">جميع الحقوق محفوظة لأمانة جدة 2019</p>
+			</div>
 		</div>
 	</div>
 </body>
+
 </html>
