@@ -29,6 +29,6 @@ public class Users {
     private BigDecimal roleId;
     @Column(name = "USER_NAME")
     private String userName;
- 
+
    
 }
