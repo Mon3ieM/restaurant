@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,20 +27,21 @@ public class OrdersControl {
 	@RequestMapping("/")
 	public String viewHomePage(Model model) {
 		System.out.println("TEST .............. ");
-	    List<Orders> listOrders = serv.listAll();
-	    model.addAttribute("listOrders", listOrders);
+		Users userDTO = new Users();
+	    model.addAttribute("user", userDTO);
 	     
 	    return "index";
 	}
 	
-	@RequestMapping("/loginAction/{data}")
-	public ModelAndView loginAction(@PathVariable(name = "username") String username , @PathVariable(name = "password") String password) {
-		ModelAndView mav = new ModelAndView("homepage");
-		Users loggedUser = userServ.findByUsernameAndPassword(username, password);
-		if(loggedUser != null && loggedUser.getIsActive().equals(1L))
-			mav.addObject("loggedUser", loggedUser);
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String saveProduct(@ModelAttribute("user") Users user) {
+	   
+	Users us = userServ.findByUsernameAndPassword(user.getUserName(), user.getPassword());
+	
+	System.err.print(us.getId());
 	     
-	    return mav;
+	    return "redirect:/";
 	}
+
 	
 }

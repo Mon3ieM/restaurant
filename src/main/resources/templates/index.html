@@ -23,15 +23,15 @@
 					<p>نظام دعم اتخاذ القرار</p>
 				</div>
 
-				<form>
+				<form action="#" th:action="@{/save}" th:object="${user}"
+            method="post">
 
 					<div class="input-group mb-3" style="margin-top: 30px;">
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="basic-addon1"><img
 								src="resources/images/userName.png"></span>
 						</div>
-						<input type="text" class="form-control" placeholder="اسم المستخدم"
-							th:value="*{username}" aria-label="Username" th:field="*{username}"
+						<input type="text" th:field="*{userName}" class="form-control" placeholder="اسم المستخدم"  aria-label="Username" 
 							aria-describedby="basic-addon1">
 					</div>
 
@@ -40,8 +40,8 @@
 							<span class="input-group-text" id="basic-addon1"><img
 								src="resources/images/pass.png"></span>
 						</div>
-						<input type="password" class="form-control" th:value="*{password}"
-							placeholder="كلمة السر" aria-label="Username" th:field="*{password}"
+						<input type="password" class="form-control" th:field="*{password}"   
+							placeholder="كلمة السر" aria-label="Username" 
 							aria-describedby="basic-addon1">
 					</div>
 
