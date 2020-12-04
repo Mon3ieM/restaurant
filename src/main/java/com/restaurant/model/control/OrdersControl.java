@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.restaurant.model.eo.FoodCategory;
 import com.restaurant.model.eo.Orders;
+import com.restaurant.model.services.FoodCategoryService;
 import com.restaurant.model.services.OrdersService;
 
 @Controller
@@ -16,13 +18,16 @@ public class OrdersControl {
 	@Autowired
 	private OrdersService serv;
 	
-	@RequestMapping("/")
+	@Autowired
+	private FoodCategoryService foodCategoryService;
+	
+	@RequestMapping("/OrderCat")
 	public String viewHomePage(Model model) {
 		System.out.println("TEST .............. ");
-	    List<Orders> listOrders = serv.listAll();
-	    model.addAttribute("listOrders", listOrders);
-	     
-	    return "popup";
+	    List<FoodCategory> foodCategory = foodCategoryService.listAll();
+	    model.addAttribute("categ", foodCategory);
+	    model.addAttribute("categCount", foodCategory.size());
+	    return "MenuItemsPage";
 	}
 	
 }

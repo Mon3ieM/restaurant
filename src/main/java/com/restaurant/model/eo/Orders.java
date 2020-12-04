@@ -1,8 +1,13 @@
 package com.restaurant.model.eo;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,5 +28,7 @@ public class Orders {
     @Column(name = "USER_ID")
     private Long userId;
 
+    @OneToMany(mappedBy = "orderId" , cascade = CascadeType.ALL)
+    List<OrderItems> orderItemsList = new ArrayList<>();
    
 }

@@ -1,10 +1,11 @@
 package com.restaurant.model.eo;
 
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -15,18 +16,22 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor
 @Table(name = "ORDER_ITEMS")
 public class OrderItems {
+	
+	@ManyToOne(targetEntity = Orders.class)
+	@JoinColumn(name="ORDER_ID")
+	private Orders orderId;
+	
     @Column(name = "FOOD_MENU_ID")
-    private BigDecimal foodMenuId;
+    private Long foodMenuId;
     @Id
     @Column(nullable = false)
-    private BigDecimal id;
+    private Long id;
     @Column(name = "IS_ACTIVE")
-    private BigDecimal isActive;
-    @Column(name = "ORDER_ID")
-    private BigDecimal orderId;
+    private Long isActive;
+   
     @Column(name = "ORDER_ITEMS_COMMENT")
     private String orderItemsComment;
-    private BigDecimal quantity;
+    private Long quantity;
 
    
 }
