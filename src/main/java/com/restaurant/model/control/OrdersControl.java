@@ -30,7 +30,7 @@ public class OrdersControl {
 		Users userDTO = new Users();
 	    model.addAttribute("user", userDTO);
 	     
-	    return "index";
+	    return "popup";
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)

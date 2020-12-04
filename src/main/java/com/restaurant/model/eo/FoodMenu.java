@@ -4,34 +4,36 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "FOOD_MENU")
 public class FoodMenu {
-   
-    @Column(name = "FOOD_CATEGORY_ID")
-    private BigDecimal foodCategoryId;
-    @Column(name = "FOOD_SIZE_ID")
-    private BigDecimal foodSizeId;
-    
-    @Id
-    @Column(nullable = false)
-    private BigDecimal id;
-    @Column(name = "IS_ACTIVE")
-    private BigDecimal isActive;
-    private String name;
-    private BigDecimal price;
 
+	@ManyToOne(targetEntity = FoodCategory.class, fetch = FetchType.EAGER)
+	@JoinColumn(name = "FOOD_CATEGORY_ID", referencedColumnName = "ID")
+	private FoodCategory foodCategoryId;
 
+	@Column(name = "FOOD_SIZE_ID")
+	private Long foodSizeId;
 
+	@Id
+	@Column(nullable = false)
+	private Long id;
+	@Column(name = "IS_ACTIVE")
+	private Long isActive;
+	private String name;
+	private Long price;
 
 }

@@ -1,7 +1,6 @@
 package com.restaurant.model.eo;
 
-import java.math.BigDecimal;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,22 +12,24 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
+@Data
 @Entity
-@Getter @Setter @NoArgsConstructor
 @Table(name = "FOOD_CATEGORY")
 public class FoodCategory{
     @Id
     @Column(nullable = false)
-    private BigDecimal id;
+    private Long id;
     @Column(name = "IS_ACTIVE")
-    private BigDecimal isActive;
+    private Long isActive;
     private String name;
+    
+    @OneToMany(mappedBy="foodCategoryId")
+    private List<FoodMenu> foodMenuList = new ArrayList<>();
  
  
 
