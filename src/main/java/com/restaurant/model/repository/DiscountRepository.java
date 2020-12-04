@@ -7,3 +7,5 @@ import com.restaurant.model.eo.Discount;
 public interface DiscountRepository extends JpaRepository<Discount, Long> {
 
 }
+
+
