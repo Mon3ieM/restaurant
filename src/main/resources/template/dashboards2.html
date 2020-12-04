@@ -1,0 +1,538 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses', 'Profit'],
+          ['2014', 1000, 400, 200],
+          ['2015', 1170, 460, 250],
+          ['2016', 660, 1120, 300],
+          ['2017', 1030, 540, 350]
+        ]);
+
+        var options = {
+          chart: {
+            
+          },
+          bars: 'horizontal' // Required for Material Bar Charts.
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+
+
+
+<script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Language', 'Speakers (in millions)'],
+          ['Assamese', 13], ['Bengali', 83], ['Bodo', 1.4],
+          ['Dogri', 2.3], ['Gujarati', 46], ['Hindi', 300],
+          ['Kannada', 38], ['Kashmiri', 5.5], ['Konkani', 5],
+          ['Maithili', 20], ['Malayalam', 33], ['Manipuri', 1.5],
+          ['Marathi', 72], ['Nepali', 2.9], ['Oriya', 33],
+          ['Punjabi', 29], ['Sanskrit', 0.01], ['Santhali', 6.5],
+          ['Sindhi', 2.5], ['Tamil', 61], ['Telugu', 74], ['Urdu', 52]
+        ]);
+
+        var options = {
+          
+          legend: 'none',
+          pieSliceText: 'label',
+          slices: {  4: {offset: 0.2},
+                    12: {offset: 0.3},
+                    14: {offset: 0.4},
+                    15: {offset: 0.5},
+          },
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+      }
+    </script>
+
+
+
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Memory', 80],
+          ['CPU', 55],
+          ['Network', 68]
+        ]);
+
+        var options = {
+          width: 400, height: 120,
+          redFrom: 90, redTo: 100,
+          yellowFrom:75, yellowTo: 90,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div4'));
+
+        chart.draw(data, options);
+
+        setInterval(function() {
+          data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+          chart.draw(data, options);
+        }, 13000);
+        setInterval(function() {
+          data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
+          chart.draw(data, options);
+        }, 5000);
+        setInterval(function() {
+          data.setValue(2, 1, 60 + Math.round(20 * Math.random()));
+          chart.draw(data, options);
+        }, 26000);
+      }
+    </script>
+
+
+    <script type="text/javascript">
+       google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses'],
+          ['2013',  1000,      400],
+          ['2014',  1170,      460],
+          ['2015',  660,       1120],
+          ['2016',  1030,      540]
+        ]);
+
+        var options = {
+          
+          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div3'));
+        chart.draw(data, options);
+      }
+
+    </script>
+
+
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', '-');
+      data.addColumn('number', '-');
+      data.addColumn('number', '-');
+      data.addColumn('number', '-');
+
+      data.addRows([
+        [1,  37.8, 80.8, 41.8],
+        [2,  30.9, 69.5, 32.4],
+        [3,  25.4,   57, 25.7],
+        [4,  11.7, 18.8, 10.5],
+        [5,  11.9, 17.6, 10.4],
+        [6,   8.8, 13.6,  7.7],
+        [7,   7.6, 12.3,  9.6],
+        [8,  12.3, 29.2, 10.6],
+        [9,  16.9, 42.9, 14.8],
+        [10, 12.8, 30.9, 11.6],
+        [11,  5.3,  7.9,  4.7],
+        [12,  6.6,  8.4,  5.2],
+        [13,  4.8,  6.3,  3.6],
+        [14,  4.2,  6.2,  3.4]
+      ]);
+
+      var options = {
+        chart: {
+          
+          
+        },
+        	 
+
+        axes: {
+          x: {
+            0: {side: 'top'}
+          }
+        }
+      };
+
+      var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+      chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+
+    </script>
+
+
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawVisualization);
+
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+        var data = google.visualization.arrayToDataTable([
+          ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
+          ['2004/05',  165,      938,         522,             998,           450,      614.6],
+          ['2005/06',  135,      1120,        599,             1268,          288,      682],
+          ['2006/07',  157,      1167,        587,             807,           397,      623],
+          ['2007/08',  139,      1110,        615,             968,           215,      609.4],
+          ['2008/09',  136,      691,         629,             1026,          366,      569.6]
+        ]);
+
+        var options = {
+          
+          vAxis: {title: 'Cups'},
+          hAxis: {title: 'Month'},
+          seriesType: 'bars',
+          series: {5: {type: 'line'}}        };
+
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+
+
+
+
+    <title>امانة جدة</title>
+        <link rel="stylesheet" href="resources\css\bootstrap.min.css" type="text/css" />
+        <link href="resources\css\styles.css" rel="stylesheet" type="text/css">
+<script src="resources\js\jQuery.js"></script>
+		<script src="resources\js\jQuery-table.js"></script>
+    <script src="resources\js\scripts.js"></script>
+		<script src="https:/kit.fontawesome.com/868b4e0b54.js" crossorigin="anonymous"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">			
+			function toggleMenu() {
+  				var widthVar = document.getElementById("mySidenav").style.width;
+				if(widthVar=="300px")
+{
+	document.getElementById("mySidenav").style.width = "0";
+}
+else{
+	document.getElementById("mySidenav").style.width = "300";
+}
+}
+
+ function toggleMenuApps(){
+ 	 var widthVar = document.getElementById("mySidenavApps").style.height;
+if(widthVar=="200px")
+{
+	document.getElementById("mySidenavApps").style.height = "0";
+}
+else{
+	document.getElementById("mySidenavApps").style.height = "200";
+}
+		
+ }
+
+$(document).ready(function() {
+    var table = $('#myTable').DataTable();
+ 
+    $('#example tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    } );
+ 
+    $('#button').click( function () {
+        table.row('.selected').remove().draw( false );
+    } );
+} );
+</script>
+
+
+
+  </head>
+  <body class="indexBody">
+
+      <!-- nav -->
+         <div id="mySidenav" class="sidenav">
+ <a href="javascript:void(0)" class="closeLink" onclick="toggleMenu()">&times;</a>
+  <div class="navUserBlock" >
+  	<a href="#" class="userIcons" style="margin-top:20px;">
+  <img src="resources/images/logout.png"/>
+</a> 
+
+ <img style="margin-top:20px;" src="resources/images/avatar_15.png" class="avatar2" onclick="toggleMenu()">
+<a href="#" style="margin-top:20px;">
+  <img src="resources/images/settings.png" class="userIcons"/>
+</a> 
+<br/>
+<p id="mainTitle" style="margin-top:7px;">محمد الحربي</p>
+  </div>
+
+
+
+<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          القائمة الرئيسية
+          <i class="fas fa-sort-down" style="margin-right:5px;float:left;"></i>
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body" style="background-color:White;">
+        <a href="#" class="navigationLink"> خطط التشغيل </a>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          ادارة العقود
+          <i class="fas fa-sort-down" style="margin-right:5px;float:left;"></i>
+        </button>
+       
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body" style="background-color:White;">
+        <a href="#" class="navigationLink"> خطط التشغيل </a>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          ادارة العمالة
+          <i class="fas fa-sort-down" style="margin-right:5px;float:left;"></i>
+        </button>
+       
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body" style="background-color:White;">
+        <a href="#" class="navigationLink"> خطط التشغيل </a>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          ادارة المعدات
+          <i class="fas fa-sort-down" style="margin-right:5px;float:left;"></i>
+        </button>
+       
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body" style="background-color:White;">
+        <a href="#" class="navigationLink"> خطط التشغيل </a>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          ادارة المسعكرات
+          <i class="fas fa-sort-down" style="margin-right:5px;float:left;"></i>
+        </button>
+       
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body" style="background-color:White;">
+        <a href="#" class="navigationLink"> خطط التشغيل </a>
+      </div>
+    </div>
+  </div>
+ 
+  
+ 
+ 
+ 
+</div>
+
+
+
+</div>
+
+  <!-- applications navigation -->
+         <div id="mySidenavApps" class="sidenav2">
+ <a href="javascript:void(0)" class="closeLink" onclick="toggleMenuApps()">&times;</a>
+  <div id="descLink" >
+  <img src="resources\images\systems\desc.png"/>
+  <p class="systemTitle2">نظام دعم اتخاذ القرار</p>
+  </div>
+
+  <div id="descLink2" >
+  <img src="resources\images\systems\monitoring.png"/>
+  <p class="systemTitle2">نظام النرقابة</p>
+  </div>
+
+  <div id="descLink3" >
+  <img src="resources\images\systems\maps.png"/>
+  <p class="systemTitle2">الخرائط النشطة</p>
+  </div>
+
+
+  <div id="descLink6" >
+  <img src="resources\images\systems\reports.png"/>
+  <p class="systemTitle2">ادارة التقارير</p>
+  </div>
+
+  <div id="descLink4" >
+  <img src="resources\images\systems\measu.png"/>
+  <p class="systemTitle2">مؤشرات القياس</p>
+  </div>
+
+  <div id="descLink5" >
+  <img src="resources\images\systems\series.png"/>
+  <p class="systemTitle2">نظام سلسلة الموافقات</p>
+  </div>
+
+
+  <div id="descLink7" >
+  <img src="resources\images\systems\finger.png"/>
+  <p class="systemTitle2">نظام البصمة</p>
+  </div>
+
+</div>
+
+
+<!-- header -->
+
+<nav class="mainHeader">
+<div class="iconsContainer">
+   <a href="#" class="notification">
+  <img src="resources/images/noti.png"/>
+  <span class="badge">3</span>
+</a> 
+<a href="#" class="notification">
+  <img src="resources/images/message.png"/>
+  <span class="badge">3</span>
+</a> 
+<a href="#" class="notification">
+  <img src="resources/images/lang.png"/>
+</a> 
+ </div>
+  
+  <div id="logoBG">
+  <img src="resources/images/Rectangle1.png"/>
+  </div>
+  <div id="logo">
+  <img src="resources/images/logo.png"/>
+  </div>
+  <div id="systemnamebg_0">
+  	<p class="systemTitle"> امانة جدة </p>
+  </div>
+  <div id="systemnamebg" onclick="toggleMenuApps()">
+<p class="systemTitle2">نظام دعم اتخاذ القرار</p>
+  </div>
+  <div id="navIcon" onclick="toggleMenu()"/>
+</nav>
+<div id="mainPagesTitle">
+	<h4 id="mainTitle">مؤشرات الاداء</h4>
+</div>
+
+<!-- center block -->
+ <div id="centerblock2" >
+ 
+
+<div class="container-fluid chartCardd">
+ <div class="row">
+ <div class="col-md-6">
+ 	<div class="card" style="height: 300px !important;">
+  <div class="card-body"><p class="label5"> مؤشر كفاءة المردم </p>
+  <p class="label4"> رسم توضيحي لمؤشر كفاءة المردم </p>
+  <div id="chart_div" ></div>
+</div>
+</div>
+</div>
+
+<div class="col-md-6">
+ 	<div class="card" style="height: 300px !important;">
+  <div class="card-body"><p class="label5"> مؤشر كفاءة المردم </p>
+  <p class="label4"> رسم توضيحي لمؤشر كفاءة المردم </p>
+<div id="line_top_x"></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="row">
+ <div class="col-md-12">
+ <div class="card" style="height: 500px !important;">
+  <div class="card-body"><p class="label5"> مؤشر كفاءة المردم </p>
+  <p class="label4"> رسم توضيحي لمؤشر كفاءة المردم </p>
+<div id="chart_div3" style="height: 400px !important;"></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+ <div class="col-md-4">
+ 	<div class="card" style="height: 300px !important;">
+  <div class="card-body"><p class="label5"> مؤشر كفاءة المردم </p>
+  <p class="label4"> رسم توضيحي لمؤشر كفاءة المردم </p>
+   <div id="chart_div4" style="margin-top:50px;"></div>
+ 
+
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+ 	<div class="card" style="height: 300px !important;">
+  <div class="card-body"><p class="label5"> مؤشر كفاءة المردم </p>
+  <p class="label4"> رسم توضيحي لمؤشر كفاءة المردم </p>
+<div id="piechart" style="height: 210px !important;"></div>
+
+
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+ 	<div class="card" style="height: 300px !important;">
+  <div class="card-body"><p class="label5"> مؤشر كفاءة المردم </p>
+  <p class="label4"> رسم توضيحي لمؤشر كفاءة المردم </p>
+ <div id="barchart_material" ></div>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+ </div>
+
+
+   
+  </body>
+</html>
+
