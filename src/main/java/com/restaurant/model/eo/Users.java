@@ -13,7 +13,43 @@ import lombok.Data;
 @Entity
 @Data
 public class Users {
-    @Column(name = "FULL_NAME")
+    public String getFullName() {
+		return fullName;
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Long getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Long isActive) {
+		this.isActive = isActive;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public Long getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	@Column(name = "FULL_NAME")
     private String fullName;
     @Id
     private Long id;

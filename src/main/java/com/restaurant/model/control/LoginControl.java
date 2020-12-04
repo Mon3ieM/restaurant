@@ -17,10 +17,8 @@ import com.restaurant.model.services.OrdersService;
 import com.restaurant.model.services.UsersService;
 
 @Controller
-public class OrdersControl {
+public class LoginControl {
 
-	@Autowired
-	private OrdersService serv;
 	@Autowired
 	private UsersService userServ;
 	
@@ -30,17 +28,22 @@ public class OrdersControl {
 		Users userDTO = new Users();
 	    model.addAttribute("user", userDTO);
 	     
-	    return "index";
+	    return "Login";
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("user") Users user) {
+	public String findUser(@ModelAttribute("user") Users user) {
 	   
 	Users us = userServ.findByUsernameAndPassword(user.getUserName(), user.getPassword());
-	
+	if(us !=null) {
 	System.err.print(us.getId());
-	     
+    return "redirect:/loadData";
+	}
+	else 
+	{
+		System.err.println("--------------Not Found-----------------");
 	    return "redirect:/";
+	}
 	}
 
 	
