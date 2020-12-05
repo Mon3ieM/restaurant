@@ -16,7 +16,7 @@ public class OrdersControl {
 	@Autowired
 	private OrdersService serv;
 	
-	@RequestMapping("/")
+	@RequestMapping("/Order")
 	public String viewHomePage(Model model) {
 		System.out.println("TEST .............. ");
 	    List<Orders> listOrders = serv.listAll();

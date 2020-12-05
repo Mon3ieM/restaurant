@@ -1,0 +1,77 @@
+<html dir="rtl" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>امانة جدة</title>
+<link rel="stylesheet" href="resources\css\bootstrap.min.css"
+	type="text/css" />
+<link href="resources\css\styles.css" rel="stylesheet" type="text/css">
+<script src="resources\js\jQuery.js"></script>
+<script src="resources\js\jQuery-table.js"></script>
+<script src="resources\js\scripts.js"></script>
+<script src="https:/kit.fontawesome.com/868b4e0b54.js"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var table = $('#myTable').DataTable();
+
+		$('#example tbody').on('click', 'tr', function() {
+			if ($(this).hasClass('selected')) {
+				$(this).removeClass('selected');
+			} else {
+				table.$('tr.selected').removeClass('selected');
+				$(this).addClass('selected');
+			}
+		});
+
+		$('#button').click(function() {
+			table.row('.selected').remove().draw(false);
+		});
+	});
+</script>
+
+</head>
+<body class="indexBody">
+
+
+
+	
+
+
+	<!-- header -->
+
+	<nav class="mainHeader">
+
+
+		<div id="logoBG">
+			<img src="resources/images/Rectangle1.png" />
+		</div>
+		<div id="logo">
+			<img src="resources/images/logo.png" />
+		</div>
+		<div id="systemnamebg_0">
+			<p class="systemTitle">دوق واحكم بنفسك</p>
+		</div>
+
+	</nav>
+	<div id="centerblock">
+		<div class="container-fluid">
+		<div class="row">
+ 	<div class="card chartBlock" >
+  <div class="card-body"><p class="label"> مؤشر كفاءة المردم </p>
+    <!-- start code -->
+    <div class="pie7">
+  <div class="pie-overlay">
+    90%
+  </div>
+</div>
+    <!-- end code --><p class="label2"> يومي | كل العقزد </p></div>
+
+</div>
+</row>
+			
+		</div>
+	</div>
+</body>
+</html>
