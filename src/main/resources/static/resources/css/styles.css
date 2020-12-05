@@ -58,8 +58,8 @@ white;
  .mainHeader{
  	background-color: red;
  	height:78px;
- 	background-image: linear-gradient(to right, #05a6c3 , #4469b0);
-border-top:8px solid #36599a;
+ 	background-image: linear-gradient(to right, #c30591ed , #448db0);
+border-top:8px solid #364c9a;
  }
  
  .systemTitle{

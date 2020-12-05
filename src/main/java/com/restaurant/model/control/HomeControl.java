@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.restaurant.model.eo.Clients;
 import com.restaurant.model.eo.Users;
 import com.restaurant.model.services.UsersService;
 
@@ -18,11 +19,14 @@ public class HomeControl {
 	
 	@RequestMapping("/loadData")
 	public String viewHomePage(Model model) {
+		model.addAttribute("NewCL", new Clients());
+		model.addAttribute("cl", new Clients());
+		model.addAttribute("msg", "");
 		System.out.println("TEST .............. ");
 		//Users userDTO = new Users();
 	    //model.addAttribute("user", userDTO);
 	     
-	    return "dashboards";
+	    return "HomePage";
 	}
 	
 	
