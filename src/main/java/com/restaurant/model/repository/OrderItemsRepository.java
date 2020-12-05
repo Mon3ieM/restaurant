@@ -10,4 +10,5 @@ import com.restaurant.model.eo.OrderItems;
 public interface OrderItemsRepository extends JpaRepository<OrderItems, Long> {
 
 	
+	
 }

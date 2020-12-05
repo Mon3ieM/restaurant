@@ -1,4 +1,6 @@
-<html dir="rtl" xmlns:th="http://www.thymeleaf.org">
+
+
+<html dir="rtl">
 <head>
 <title>امانة جدة</title>
 <link rel="stylesheet" href="resources\css\bootstrap.min.css"
@@ -32,35 +34,26 @@
 
 </head>
 <body class="indexBody">
+	<p>Link 1</p>
+	<a data-toggle="modal" data-id="ISBN564541" title="Add this item"
+		class="open-AddBookDialog btn btn-primary" href="#addBookDialog">test</a>
+
+	<p>&nbsp;</p>
 
 
+	<p>Link 2</p>
+	<a data-toggle="modal" data-id="ISBN-001122" title="Add this item"
+		class="open-AddBookDialog btn btn-primary" href="#addBookDialog">test</a>
 
-	<!-- center block -->
-
-	<div id="centerblock">
-		<th:block th:each="cat : ${categ}">
-			<div class="accordion" id="accordionExample">
-				<div class="card">
-					<div class="card-header" id="headingOne">
-						<h1 th:text="${cat.name}"></h1>
-					</div>
-					<div id="collapseOne" class="collapse show"
-						aria-labelledby="headingOne" data-parent="#accordionExample">
-						<div class="card-body">
-							<th:block th:each="food : ${cat.foodMenuList}">
-
-								<a th:href="@{'/OrderItem/' + ${food.id}}" th:text="${food.name}"></a>
-							</th:block>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-		</th:block>
-
+	<div class="modal hide" id="addBookDialog">
+		<div class="modal-header">
+			<button class="close" data-dismiss="modal">×</button>
+			<h3>Modal header</h3>
+		</div>
+		<div class="modal-body">
+			<p>some content</p>
+			<input type="text" name="bookId" id="bookId" value="" />
+		</div>
 	</div>
-
-
 </body>
 </html>

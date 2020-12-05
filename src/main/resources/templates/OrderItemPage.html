@@ -1,0 +1,99 @@
+<html dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>امانة جدة</title>
+<link rel="stylesheet" href="resources\css\bootstrap.min.css"
+	type="text/css" />
+<link href="resources\css\styles.css" rel="stylesheet" type="text/css">
+<script src="resources\js\jQuery.js"></script>
+<script src="resources\js\jQuery-table.js"></script>
+<script src="resources\js\scripts.js"></script>
+<script src="https:/kit.fontawesome.com/868b4e0b54.js"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+.split {
+	height: 100%;
+	
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	overflow-x: hidden;
+
+}
+
+.left {
+	left: 0;
+width: 70%;
+}
+
+.right {
+	right: 0;
+	width: 30%;
+
+}
+
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+</style>
+
+</head>
+<body class="indexBody">
+
+<div id="centerblock">
+	<div class="split left">
+		<div class="centered">
+			<img src="img_avatar2.png" alt="Avatar woman">
+			<h2>Jane Flex</h2>
+			<p>Some text.</p>
+		</div>
+	</div>
+
+	<div class="split right">
+		<div class="centered">
+			<form action="#" method="post">
+
+				<p class="label" style="margin-top: 10px;">العقد</p>
+				<select class="custom-select" id="name2" dir="rtl"
+					style="margin-right: -10px; margin-top: 10px; width: 100%;">
+					<option selected>الحجم</option>
+					<option value="1">صغير</option>
+					<option value="2">وسط</option>
+					<option value="3">كبير</option>
+					<option value="4">عائلي</option>
+				</select>
+
+				<div class="input-group mb-3" style="margin-top: 30px;">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1"><img
+							src="resources/images/userName.png"></span>
+					</div>
+					<input type="text" class="form-control" placeholder="اسم المستخدم"
+						aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1"><img
+							src="resources/images/pass.png"></span>
+					</div>
+					<input type="password" class="form-control" placeholder="كلمة السر"
+						aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+
+				<button type="submit" class="btn btn-primary">تسجيل دخول</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+</body>
+</html>

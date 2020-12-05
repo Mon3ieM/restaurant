@@ -7,5 +7,6 @@ import com.restaurant.model.eo.FoodMenu;
 
 public interface FoodMenuRepository extends JpaRepository<FoodMenu, Long> {
 
+	
 }
 

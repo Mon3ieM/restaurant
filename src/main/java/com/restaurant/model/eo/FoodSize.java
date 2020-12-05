@@ -1,32 +1,46 @@
 package com.restaurant.model.eo;
 
-import java.math.BigDecimal;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-
-
-/**
- * To create ID generator sequence "FOOD_SIZE_ID_SEQ_GEN":
- * CREATE SEQUENCE "FOOD_SIZE_ID_SEQ_GEN" INCREMENT BY 50 START WITH 50;
- */
 @Entity
-@Getter @Setter @NoArgsConstructor
 @Table(name = "FOOD_SIZE")
+@SequenceGenerator(name = "FoodSize_Seq_Gen", sequenceName = "Food_Size_SEQ",
+allocationSize = 1, initialValue = 1)
 public class FoodSize {
     @Id
     @Column(nullable = false)
-    private BigDecimal id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FoodSize_Seq_Gen")
+    private Long id;
     private String name;
     @Column(name = "IS_ACTIVE")
-    private BigDecimal isActive;
+    private Long isActive;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Long getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Long isActive) {
+		this.isActive = isActive;
+	}
 
 
     

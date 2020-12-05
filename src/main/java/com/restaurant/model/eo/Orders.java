@@ -6,14 +6,18 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@SequenceGenerator(name = "Orders_Seq_Gen", sequenceName = "ORDERS_SEQ",
+allocationSize = 1, initialValue = 1)
 public class Orders {
 
 	@Column(name = "CLIENT_ID")
@@ -22,13 +26,42 @@ public class Orders {
     private Long discountId;
     @Id
     @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Orders_Seq_Gen")
     private Long id;
     @Column(name = "IS_ACTIVE")
     private Long isActive;
     @Column(name = "USER_ID")
     private Long userId;
+	public Long getClientId() {
+		return clientId;
+	}
+	public void setClientId(Long clientId) {
+		this.clientId = clientId;
+	}
+	public Long getDiscountId() {
+		return discountId;
+	}
+	public void setDiscountId(Long discountId) {
+		this.discountId = discountId;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Long getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Long isActive) {
+		this.isActive = isActive;
+	}
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
-    @OneToMany(mappedBy = "orderId" , cascade = CascadeType.ALL)
-    List<OrderItems> orderItemsList = new ArrayList<>();
    
 }

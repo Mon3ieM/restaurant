@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.restaurant.model.eo.FoodMenu;
+import com.restaurant.model.eo.OrderItems;
 import com.restaurant.model.eo.Orders;
 import com.restaurant.model.eo.Users;
 import com.restaurant.model.services.OrdersService;
@@ -24,11 +26,20 @@ public class LoginControl {
 	
 	@RequestMapping("/")
 	public String viewHomePage(Model model) {
-		System.out.println("TEST .............. ");
-		Users userDTO = new Users();
-	    model.addAttribute("user", userDTO);
-	     
-	    return "Login";
+//		System.out.println("TEST .............. ");
+//		Users userDTO = new Users();
+//	    model.addAttribute("user", userDTO);
+	
+
+		FoodMenu fm = new FoodMenu();
+		OrderItems orderItem = new OrderItems(); 
+		
+		
+		model.addAttribute("fmenu", fm);
+		model.addAttribute("orItem", orderItem);
+		
+		
+	    return "OrderItemPage";
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)

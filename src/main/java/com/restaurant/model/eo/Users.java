@@ -3,16 +3,21 @@ package com.restaurant.model.eo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
-import lombok.Data;
 
 @Entity
-
+@SequenceGenerator(name = "Users_Seq_Gen", sequenceName = "Users_SEQ",
+allocationSize = 1, initialValue = 1)
 public class Users {
     @Column(name = "FULL_NAME")
     private String fullName;
     @Id
+    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Users_Seq_Gen")
     private Long id;
     @Column(name = "IS_ACTIVE")
     private Long isActive;
