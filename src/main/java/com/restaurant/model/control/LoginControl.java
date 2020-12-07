@@ -29,7 +29,6 @@ public class LoginControl {
 //		System.out.println("TEST .............. ");
 		Users userDTO = new Users();
 	    model.addAttribute("user", userDTO);
-	
 	    return "Login";
 	}
 	
@@ -39,7 +38,7 @@ public class LoginControl {
 	Users us = userServ.findByUsernameAndPassword(user.getUserName(), user.getPassword());
 	if(us !=null) {
 	System.err.print(us.getId());
-    return "redirect:/loadData";
+    return "redirect:/HomePage";
 	}
 	else 
 	{
