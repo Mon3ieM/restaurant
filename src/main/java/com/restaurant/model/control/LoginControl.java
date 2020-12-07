@@ -27,19 +27,10 @@ public class LoginControl {
 	@RequestMapping("/")
 	public String viewHomePage(Model model) {
 //		System.out.println("TEST .............. ");
-//		Users userDTO = new Users();
-//	    model.addAttribute("user", userDTO);
+		Users userDTO = new Users();
+	    model.addAttribute("user", userDTO);
 	
-
-		FoodMenu fm = new FoodMenu();
-		OrderItems orderItem = new OrderItems(); 
-		
-		
-		model.addAttribute("fmenu", fm);
-		model.addAttribute("orItem", orderItem);
-		
-		
-	    return "OrderItemPage";
+	    return "Login";
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)

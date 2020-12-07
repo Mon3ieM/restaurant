@@ -1,4 +1,5 @@
-<html dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<html dir="rtl" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>امانة جدة</title>
 <link rel="stylesheet" href="resources\css\bootstrap.min.css"
@@ -32,35 +33,35 @@
 
 </head>
 <body class="indexBody">
+	<!-- header -->
+	<nav class="mainHeader">
+		<div id="logoBG">
+			<img src="resources/images/Rectangle1.png" />
+		</div>
+		<div id="logo">
+			<img src="resources/images/logo.png" />
+		</div>
+		<div id="systemnamebg_0">
+			<p class="systemTitle">دوق واحكم بنفسك</p>
+		</div>
 
-
-
-	<!-- center block -->
-
+	</nav>
 	<div id="centerblock">
-		<th:block th:each="cat : ${categ}">
-			<div class="accordion" id="accordionExample">
-				<div class="card">
-					<div class="card-header" id="headingOne">
-						<h1 th:text="${cat.name}"></h1>
-					</div>
-					<div id="collapseOne" class="collapse show"
-						aria-labelledby="headingOne" data-parent="#accordionExample">
-						<div class="card-body">
-							<th:block th:each="food : ${cat.foodMenuList}">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-5"></div>
 
-								<a th:href="@{'/OrderItem/' + ${food.id}}" th:text="${food.name}"></a>
-							</th:block>
-						</div>
-					</div>
+				<div class="col-md-10">
+					<th:block th:each="category : ${listCategory}">
+						<button>Dummy</button>
+					</th:block>
+
+
+
 				</div>
-
 			</div>
-
-		</th:block>
-
+		</div>
 	</div>
-
 
 </body>
 </html>

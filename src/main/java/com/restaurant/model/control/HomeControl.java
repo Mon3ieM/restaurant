@@ -26,7 +26,7 @@ public class HomeControl {
 		//Users userDTO = new Users();
 	    //model.addAttribute("user", userDTO);
 	     
-	    return "HomePage";
+	    return "Clients";
 	}
 	
 	
