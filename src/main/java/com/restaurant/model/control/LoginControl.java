@@ -26,6 +26,7 @@ public class LoginControl {
 	
 	@RequestMapping("/")
 	public String viewHomePage(Model model) {
+<<<<<<< HEAD
 		System.out.println("TEST .............. ");
 		Users userDTO = new Users();
 	    model.addAttribute("user", userDTO);
@@ -33,6 +34,22 @@ public class LoginControl {
 		
 		
 	    return "Login";
+=======
+//		System.out.println("TEST .............. ");
+//		Users userDTO = new Users();
+//	    model.addAttribute("user", userDTO);
+	
+
+		FoodMenu fm = new FoodMenu();
+		OrderItems orderItem = new OrderItems(); 
+		
+		
+		model.addAttribute("fmenu", fm);
+		model.addAttribute("orItem", orderItem);
+		
+		
+	    return "OrderItemPage";
+>>>>>>> 6ae8b06fbf3e1d63e6eb7371d21a31aa5a79a97c
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
