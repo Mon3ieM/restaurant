@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.restaurant.model.eo.FoodMenu;
+import com.restaurant.model.eo.OrderItems;
 import com.restaurant.model.eo.Orders;
 import com.restaurant.model.eo.Users;
 import com.restaurant.model.services.OrdersService;
@@ -27,7 +29,9 @@ public class LoginControl {
 		System.out.println("TEST .............. ");
 		Users userDTO = new Users();
 	    model.addAttribute("user", userDTO);
-	     
+
+		
+		
 	    return "Login";
 	}
 	
@@ -37,7 +41,7 @@ public class LoginControl {
 	Users us = userServ.findByUsernameAndPassword(user.getUserName(), user.getPassword());
 	if(us !=null) {
 	System.err.print(us.getId());
-    return "redirect:/loadData";
+    return "redirect:/HomePage";
 	}
 	else 
 	{

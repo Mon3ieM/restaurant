@@ -8,7 +8,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.restaurant.model.eo.FoodMenu;
 import com.restaurant.model.eo.Orders;
+import com.restaurant.model.repository.FoodMenuRepository;
+import com.restaurant.model.repository.OrderItemsRepository;
 import com.restaurant.model.repository.OrdersRepository;
 
 @Service
@@ -17,15 +20,19 @@ public class OrdersService{
 	@Autowired
 	private OrdersRepository repo;
 
+
+	
+	
+	
+	public void createNewOrder(Orders eo) {
+		// TODO Auto-generated method stub
+		repo.save(eo);
+	}
+
+	
 	public List<Orders> listAll() {
 		// TODO Auto-generated method stub
 		return repo.findAll();
-	}
-
-
-	public void save(Orders eo) {
-		// TODO Auto-generated method stub
-		repo.save(eo);
 	}
 
 	public Orders get(Long id) {
