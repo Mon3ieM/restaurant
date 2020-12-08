@@ -19,7 +19,10 @@ public class FoodMenuService {
 	@Autowired
 	FoodMenuRepository repo;
 
-	
+	public List<FoodMenu> listAllByCategoryId(Long catId) {
+		// TODO Auto-generated method stub
+		return repo.findByFoodCategoryId(catId);
+	}
 	
 	public void save(FoodMenu eo) {
 		// TODO Auto-generated method stub

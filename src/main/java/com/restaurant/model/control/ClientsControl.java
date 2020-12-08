@@ -21,7 +21,6 @@ public class ClientsControl {
 	@RequestMapping(value = "/findClientByMobile", method = RequestMethod.POST)
 	public ModelAndView GetClientBYMobile(@ModelAttribute("cl") Clients client) {
 		ModelAndView mv;
-		System.out.print(client.getMobile1() + "t99999999999999999999");
 		List<Clients> findClients = clientServ.findbyMobile1(client.getMobile1());
 
 		if (!findClients.isEmpty()) {
@@ -43,7 +42,6 @@ public class ClientsControl {
 	public ModelAndView AddNewClient(@ModelAttribute("NewCL") Clients newClient) {
 		ModelAndView mv;
 
-		System.out.print(newClient.getMobile1() + "t99999999999999999999");
 		List<Clients> findClients = clientServ.findbyMobile1(newClient.getMobile1());
 
 		if (!findClients.isEmpty()) {
@@ -66,7 +64,6 @@ public class ClientsControl {
 	public ModelAndView UpdateClient(@ModelAttribute("cl") Clients ModifyClient) {
 		ModelAndView mv;
 
-		System.out.print(ModifyClient.getId() + "t99999999999999999999");
 		clientServ.save(ModifyClient);
 		mv = new ModelAndView("Clients");
 		mv.addObject("cl", ModifyClient);

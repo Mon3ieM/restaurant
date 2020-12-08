@@ -33,8 +33,13 @@
 
 </head>
 <body class="indexBody">
+
+
 	<!-- header -->
+
 	<nav class="mainHeader">
+
+
 		<div id="logoBG">
 			<img src="resources/images/Rectangle1.png" />
 		</div>
@@ -46,14 +51,23 @@
 		</div>
 
 	</nav>
+
+
+	<!-- center block -->
+
 	<div id="centerblock">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-5"></div>
+				<th:block th:each="fMenu : ${foodMenuList}">
+					<a th:text="${fMenu.name}"/>
 
+				</th:block>
 				<div class="col-md-10">
 					<th:block th:each="category : ${listCategory}">
-						<button>Dummy</button>
+						<a th:text="${category.name}"
+							th:href="@{'/getMenuByCategoryId/' + ${category.id}}" />
+
 					</th:block>
 
 
@@ -62,6 +76,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

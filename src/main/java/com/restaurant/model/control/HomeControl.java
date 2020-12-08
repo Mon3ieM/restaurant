@@ -28,13 +28,9 @@ public class HomeControl {
 		mv.addObject("NewCL", new Clients());
 		mv.addObject("cl", new Clients());
 		mv.addObject("msg", "");
-		System.out.println(type + ".............. ");
-	    
-		System.out.println("TEST .............. ");
+	
 	    return mv;
 	}
-	
-	
 	
 	
 }
