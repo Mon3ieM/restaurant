@@ -16,21 +16,22 @@ import com.restaurant.model.services.UsersService;
 @Controller
 
 public class HomeControl {
-		
+
 	@RequestMapping("/HomePage")
 	public String viewHomePage(Model model) {
 		System.out.println("TEST .............. ");
-	    return "homePage";
+		return "homePage";
 	}
-	@RequestMapping("/ClientsHomePage/{type}")	
-	public ModelAndView DeliveryHomePage(@PathVariable(name = "type") int type) {
-		ModelAndView mv=new ModelAndView("Clients");
-		mv.addObject("NewCL", new Clients());
-		mv.addObject("cl", new Clients());
-		mv.addObject("msg", "");
-	
-	    return mv;
+
+	@RequestMapping("/homePageFilter/{type}")
+	public String DeliveryHomePage(@PathVariable(name = "type") int type) {
+		String mv = null;
+		if (type == 1) {
+			mv = "redirect:/showClients";
+		}
+
+		return mv;
+
 	}
-	
-	
+
 }

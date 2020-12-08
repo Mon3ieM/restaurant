@@ -28,12 +28,11 @@
 	</nav>
 	<div id="centerblock">
 		<div class="container-fluid">
-		<form action="#" th:action="@{/ClientsHomePage}" method="post">
+	
 			<div class="row">		
 				<div class="card chartBlock">
-					<input type="image" src="resources/images/TakeAway.jpg" href="@{'/ClientsHomePage/' + ${1}}"
-						alt="Submit">
-					<p class="label2">تيك اواي</p>
+					<img src="resources/images/TakeAway.jpg">
+					<a th:href="@{'/homePageFilter/' + ${1}}"><h3 class="label2">تيك اواي</h3></a>
 				</div>
 				<div class="card chartBlock">
 					<input type="image" src="resources/images/delivery.jpg"
@@ -49,7 +48,7 @@
 					<p class="label2">منظومه المخزن</p>
 				</div>
 			</div>
-			</form>
+			
 			<div class="row">
 
 
