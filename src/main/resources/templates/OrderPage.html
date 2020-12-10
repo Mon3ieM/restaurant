@@ -36,7 +36,7 @@
 																	.parse(result);
 															var s = '';
 															for (var i = 0; i < res.length; i++) {
-																s += " <button class=\"btnfood\" action=\"#\" id=\""+res[i].id+"\" >"
+																s += " <button class=\" btnfood\" action=\"#\" id=\""+res[i].id+"\" >"
 																		+ res[i].name
 																		+ "</button> ";
 
@@ -90,106 +90,111 @@
 	<input type="hidden" id="sizeId" />
 
 	<div id="centerblock">
+		<div class="container-fluid">
+			<div class="row" dir="rtl" id="fieldsForm">
+				<div class="col-md-6 lineDiv">
+					<div class="row" style="border-bottom: double;" dir="rtl">
+						<th:block th:each="category : ${listCategory}">
+							<button class="btn"
+								style="width: 30%; margin-right: 10px; margin-top: 5px">
+								<a th:href="@{'/getMenuByCategoryId/' + ${category.id}}"
+									th:text="${category.name}"></a>
+							</button>
 
-		<div style="display: flex;">
-			<!-- Right content -->
-			<div style="flex: 1;">
-				<h3>بيانات الطلب</h3>
-				<form action="#" th:action="@{/sendNeededDataAndGetPrice}"
-					th:object="${FoodItemDataDTO}" method="post">
-					<p class="label" style="margin-top: 10px;">الاكل</p>
-					<input type="text" class="form-control" id="foodName"
-						style="margin-top: 10px;" name="foodMenuName">
-					<p class="label" style="margin-top: 10px;">الحجم</p>
-					<select class="size-select" id="name2" dir="rtl"
-						style="margin-right: -10px; margin-top: 10px; width: 100%;"
-						name="foodSizeId">
-						<option value="1">صغير</option>
-						<option value="2">وسط</option>
-						<option value="3">كبير</option>
-						<option value="4">عائلى</option>
-					</select>
+						</th:block>
+					</div>
+					<br>
 
-					<p class="label" style="margin-top: 10px;">العدد</p>
-					<input type="number" class="form-control" style="margin-top: 10px;"
-						name="qty">
+					<div class="row" dir="rtl" id="fieldsForm">
 
-					<p class="label" style="margin-top: 10px;">تعليق على الطلب</p>
-					<textarea style="margin-top: 10px;" class="form-control"
-						name="comment">
-						</textarea>
+						<th:block th:each="menuFood : ${foodMenuList}">
+							<button class="btn btnFood btn-primary"
+								style="width: 30%; margin-right: 5px; margin-top: 5px"
+								action="#" th:id="${menuFood.id}" th:value="${menuFood.name}"
+								th:text="${menuFood.name}" />
 
-					<input type="hidden" id="foodMenuId" name="foodMenuId">
-
-
-					<button type="submit" class="btn btn-primary" id="okModal"
-						style="margin-left: 10px;">اضافة</button>
-				</form>
-
-
-
+						</th:block>
+					</div>
+				</div>
+				<div class="col-md-6 lineDiv">
+					<form action="#" th:action="@{/sendNeededDataAndGetPrice}"
+						th:object="${FoodItemDataDTO}" method="post">
+						<input type="text" class="form-control" id="foodName"
+							disabled="disabled" style="margin-top: 10px;" name=> <select
+							class="size-select" id="name2" dir="rtl"
+							style="margin-right: -10px; margin-top: 10px; width: 100%;"
+							name="foodSizeId">
+							<option value="1" selected="selected">صغير</option>
+							<option value="2">وسط</option>
+							<option value="3">كبير</option>
+							<option value="4">عائلى</option>
+						</select> <input type="number" class="form-control" placeholder="العدد"
+							style="margin-top: 10px;" name="qty"> <input type="text"
+							style="margin-top: 10px;" class="form-control"
+							placeholder="تعليق على الطلب" name="comment"> <input
+							type="hidden" id="foodMenuId" name="foodMenuId">
+						<button type="submit" class="btn btn-primary" id="okModal"
+							style="margin-top: 10px; width: 20%">اضافة</button>
+					</form>
+				</div>
 			</div>
+			<div class="row" dir="rtl" id="fieldsForm">
+				<table>
 
-			<!-- Left content -->
-			<div style="flex: 1;">
-
-				<th:block th:each="category : ${listCategory}">
-					<button class="btn">
-						<a th:href="@{'/getMenuByCategoryId/' + ${category.id}}"
-							th:text="${category.name}"></a>
-					</button>
-				</th:block>
-				<br>
-
-
-				<th:block th:each="menuFood : ${foodMenuList}">
-					<button class="btnFood" action="#" th:id="${menuFood.id}"
-						th:value="${menuFood.name}" th:text="${menuFood.name}" />
-				</th:block>
-
-
-				<div id="menuDiv"></div>
-
-			</div>
-
-		</div>
-		<div class="container pt-4">
-			<div class="table-responsive">
-				<table class="table table-bordered">
-					<thead>
-						<tr>
-
-							<th class="text-center">الاسم</th>
-							<th class="text-center">الحجم</th>
-							<th class="text-center">الكمية</th>
-							<th class="text-center">السعر</th>
-							<th class="text-center"></th>
-						</tr>
-					</thead>
-					<tbody id="tbody">
-						<tr th:each="foodItemOrder :${foodItemOrderList}">
-							<td th:text="${foodItemOrder.foodMenuName}"></td>
-							<td th:text="${foodItemOrder.size}"></td>
-							<td th:text="${foodItemOrder.qty}"></td>
-							<td th:text="${foodItemOrder.price}"></td>
-							<td>
-								<button>
-									<a th:href="@{'/removeFoodItemOrder/' + ${foodItemOrder.id}}">
-										حذف </a>
-								</button>
-							</td>
-						</tr>
-					</tbody>
+					<tr>
+						<td>
+							<p class="label" style="margin-top: 10px;">السعر الاجمالى</p>
+						</td>
+						<td>
+							<p style="margin-right: 10px;margin-top: 10px;" th:text="${totalPrice}"></p>
+						</td>
+					</tr>
+					<tr>
+					</tr>
+					<tr>
+						<td><button class="btn btn-success">
+								<a style="color:white" th:href="@{'/calculateFinalPrice'}"> أنهاء الطلب </a>
+							</button></td>
+					</tr>
 				</table>
-				<p class="label" style="margin-top: 10px;">السعر الاجمالى</p>
-				<p style="margin-top: 10px;" th:text="${totalPrice}"></p>
-				<button>
-					<a th:href="@{'/calculateFinalPrice'}"> أنهاء الطلب </a>
-				</button>
 			</div>
+			<div class="row" dir="rtl" id="fieldsForm">
+				<div class="container pt-4">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+
+									<th class="text-center">الاسم</th>
+									<th class="text-center">الحجم</th>
+									<th class="text-center">الكمية</th>
+									<th class="text-center">السعر</th>
+									<th class="text-center"></th>
+								</tr>
+							</thead>
+							<tbody id="tbody">
+								<tr th:each="foodItemOrder :${foodItemOrderList}">
+									<td th:text="${foodItemOrder.foodMenuName}"></td>
+									<td th:text="${foodItemOrder.size}"></td>
+									<td th:text="${foodItemOrder.qty}"></td>
+									<td th:text="${foodItemOrder.price}"></td>
+									<td>
+										<button class="btn btn-danger">
+											<a style="color:white" th:href="@{'/removeFoodItemOrder/' + ${foodItemOrder.id}}">
+												حذف </a>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+
+				</div>
+			</div>
+
 
 		</div>
 	</div>
-
 </body>
 </html>
