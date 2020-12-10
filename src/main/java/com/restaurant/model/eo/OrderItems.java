@@ -1,6 +1,7 @@
 package com.restaurant.model.eo;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -22,10 +24,15 @@ allocationSize = 1, initialValue = 1)
 
 public class OrderItems {
 	
-	@Column(name="ORDER_ID")
-	private Long orderId;
+//	@Column(name="ORDER_ID")
+//	private Long orderId;
 	
-    @Column(name = "FOOD_PRICE_ID")
+	
+	@ManyToOne
+	@JoinColumn(name = "ORDER_ID")
+	private Orders order;
+
+	@Column(name = "FOOD_PRICE_ID")
     private Long foodPriceId;
     @Id
     @Column(nullable = false)
@@ -37,11 +44,12 @@ public class OrderItems {
     private Long quantity;
     
     
-	public Long getOrderId() {
-		return orderId;
+	
+    public Orders getOrder() {
+		return order;
 	}
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
+	public void setOrder(Orders order) {
+		this.order = order;
 	}
 	public Long getFoodPriceId() {
 		return foodPriceId;

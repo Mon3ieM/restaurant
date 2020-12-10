@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
@@ -32,6 +33,12 @@ public class Orders {
     private Long isActive;
     @Column(name = "USER_ID")
     private Long userId;
+    
+    
+    @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL , orphanRemoval = true)
+    List<OrderItems> orderItemsList ;
+    
+    
 	public Long getClientId() {
 		return clientId;
 	}
@@ -61,6 +68,12 @@ public class Orders {
 	}
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	public List<OrderItems> getOrderItemsList() {
+		return orderItemsList;
+	}
+	public void setOrderItemsList(List<OrderItems> orderItemsList) {
+		this.orderItemsList = orderItemsList;
 	}
 
    
