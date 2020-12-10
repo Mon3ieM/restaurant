@@ -57,9 +57,6 @@ public class OrdersControl {
 	@ResponseBody
 	@GetMapping("/getMenuByCategoryId/{catId}")
 	public String showFoodItemPerCategory(@PathVariable(name = "catId") long catId) {
-		test = test + 1 ;
-		System.out.println("test >> " + test);
-		
 		foodMenuList = foodMenuService.listAllByCategoryId(catId);
 	    Gson gSon = new Gson();
 	    return gSon.toJson(foodMenuService.listAllByCategoryId(catId));
@@ -67,9 +64,16 @@ public class OrdersControl {
 	
 	@RequestMapping(value = "/AddNewOrderItem", method = RequestMethod.POST)
 	public String AddNewClient(@ModelAttribute("orderItem") Clients newOrderItem) {
-
 		
 		return "redirect:/showOrder";
+	}
+	
+	@ResponseBody
+	@GetMapping("/getMenuPrice/{catId}")
+	public String showFoodItemPerCategory1(@PathVariable(name = "catId") long catId) {
+		foodMenuList = foodMenuService.listAllByCategoryId(catId);
+	    Gson gSon = new Gson();
+	    return gSon.toJson(foodMenuService.listAllByCategoryId(catId));
 	}
 
 	

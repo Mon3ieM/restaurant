@@ -20,6 +20,7 @@
 	$(document).ready(function() {
 		$('.btn').click(function() {
 			var catId = $(this).attr("id");
+			
 			$.ajax({
 				type : 'GET',
 				url : '/getMenuByCategoryId/' + catId,
@@ -29,8 +30,8 @@
 					for (var i = 0; i < res.length; i++) {
 						s += " <button data-toggle='modal' data-target='#exampleModalLong' type='button' " +
 						" class='btn descitionBTN'>"
-								+ res[i].name
-								+ " </button> </br> ";
+																		+ res[i].name
+																		+ " </button> </br> ";
 					}
 
 					$('#menuDiv').html(s);
@@ -42,11 +43,11 @@
 		});
 	});
 	$(document).ready(function() {
-	$('#okModal').click(function() {
-		alert("test");
+		$('#okModal').click(function() {
+			alert("test");
 
+		});
 	});
-});
 </script>
 </head>
 <body class="indexBody">
@@ -70,6 +71,13 @@
 
 
 	<!-- center block -->
+	<input type="hidden" id="catId" />
+	<input type="hidden" id="menuId" />
+	<input type="hidden" id="sizeId" />
+
+	<input type="hidden" id="catId" />
+	<input type="hidden" id="menuId" />
+	<input type="hidden" id="sizeId" />
 
 	<div id="centerblock">
 
@@ -77,7 +85,37 @@
 
 
 			<!-- Right content -->
-			<div style="flex: 1;"></div>
+			<div style="flex: 1;">
+				<h3>بيانات الطلب</h3>
+				<form action="#">
+					<p class="label" style="margin-top: 10px;">الاكل</p>
+					<input type="text" class="form-control" id="foodd"
+						style="margin-top: 10px;">
+					<p class="label" style="margin-top: 10px;">الحجم</p>
+					<select class="size-select" id="name2" dir="rtl"
+						style="margin-right: -10px; margin-top: 10px; width: 100%;">
+						<option selected>الاحجام</option>
+						<option value="1">صغير</option>
+						<option value="2">وسط</option>
+						<option value="3">كبير</option>
+						<option value="4">عائلى</option>
+					</select>
+
+					<p class="label" style="margin-top: 10px;">العدد</p>
+					<input type="number" class="form-control" style="margin-top: 10px;">
+
+					<p class="label" style="margin-top: 10px;">تعليق على الطلب</p>
+					<textarea style="margin-top: 10px;" class="form-control">
+						</textarea>
+					<button type="button" class="btn btn-secondary"
+						style="margin-left: 10px;" data-dismiss="modal">الغاء</button>
+					<button type="button" class="btn btn-primary" id="okModal"
+						style="margin-left: 10px;">موافق</button>
+				</form>
+
+
+
+			</div>
 
 			<!-- Left content -->
 			<div style="flex: 1;">
@@ -101,35 +139,8 @@
 					<h5 class="modal-title"></h5>
 
 				</div>
-				<div class="modal-body">
-					<form action="#">
-
-						<p class="label" style="margin-top: 10px;">الحجم</p>
-						<select class="size-select" id="name2" dir="rtl"
-							style="margin-right: -10px; margin-top: 10px; width: 100%;">
-							<option selected>الاحجام</option>
-							<option value="1">صغير</option>
-							<option value="2">وسط</option>
-							<option value="3">كبير</option>
-							<option value="4">عائلى</option>
-						</select>
-
-						<p class="label" style="margin-top: 10px;">العدد</p>
-						<input type="number" class="form-control"
-							style="margin-top: 10px;">
-
-						<p class="label" style="margin-top: 10px;">تعليق على الطلب</p>
-						<textarea style="margin-top: 10px;" class="form-control">
-						</textarea>
-
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						style="margin-left: 10px;" data-dismiss="modal">الغاء</button>
-					<button type="button" class="btn btn-primary" id="okModal"
-						style="margin-left: 10px;">موافق</button>
-				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer"></div>
 			</div>
 		</div>
 	</div>
