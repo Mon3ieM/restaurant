@@ -17,34 +17,44 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <script>
-	$(document).ready(function() {
-		$('.btn').click(function() {
-			var catId = $(this).attr("id");
-			
-			$.ajax({
-				type : 'GET',
-				url : '/getMenuByCategoryId/' + catId,
-				success : function(result) {
-					var res = JSON.parse(result);
-					var s = '';
-					for (var i = 0; i < res.length; i++) {
-						s += " <button data-toggle='modal' data-target='#exampleModalLong' type='button' " +
-						" class='btn descitionBTN'>"
+	$(document)
+			.ready(
+					function() {
+						$('.btn')
+								.click(
+										function() {
+											var catId = $(this).attr("id");
+
+											$
+													.ajax({
+														type : 'GET',
+														url : '/getMenuByCategoryId/'
+																+ catId,
+														success : function(
+																result) {
+															var res = JSON
+																	.parse(result);
+															var s = '';
+															for (var i = 0; i < res.length; i++) {
+																s += " <button class=\"btnfood\" action=\"#\" id=\""+res[i].id+"\" >"
 																		+ res[i].name
-																		+ " </button> </br> ";
-					}
+																		+ "</button> ";
 
-					$('#menuDiv').html(s);
+															}
 
-				}
+															$('#menuDiv').html(
+																	s);
+														}
+													});
 
-			});
-
-		});
-	});
+										});
+					});
 	$(document).ready(function() {
-		$('#okModal').click(function() {
-			alert("test");
+		$('.btnfood').click(function() {
+			var foodmenuId = $(this).attr("id");
+			var foodmenuName = $(this).attr("value");
+			$("#foodName").val(foodmenuName);
+			$("#foodMenuId").val(foodmenuId);
 
 		});
 	});
@@ -82,19 +92,18 @@
 	<div id="centerblock">
 
 		<div style="display: flex;">
-
-
 			<!-- Right content -->
 			<div style="flex: 1;">
 				<h3>بيانات الطلب</h3>
-				<form action="#">
+				<form action="#" th:action="@{/sendNeededDataAndGetPrice}"
+					th:object="${FoodItemDataDTO}" method="post">
 					<p class="label" style="margin-top: 10px;">الاكل</p>
-					<input type="text" class="form-control" id="foodd"
-						style="margin-top: 10px;">
+					<input type="text" class="form-control" id="foodName"
+						style="margin-top: 10px;" name="foodMenuName">
 					<p class="label" style="margin-top: 10px;">الحجم</p>
 					<select class="size-select" id="name2" dir="rtl"
-						style="margin-right: -10px; margin-top: 10px; width: 100%;">
-						<option selected>الاحجام</option>
+						style="margin-right: -10px; margin-top: 10px; width: 100%;"
+						name="foodSizeId">
 						<option value="1">صغير</option>
 						<option value="2">وسط</option>
 						<option value="3">كبير</option>
@@ -102,15 +111,19 @@
 					</select>
 
 					<p class="label" style="margin-top: 10px;">العدد</p>
-					<input type="number" class="form-control" style="margin-top: 10px;">
+					<input type="number" class="form-control" style="margin-top: 10px;"
+						name="qty">
 
 					<p class="label" style="margin-top: 10px;">تعليق على الطلب</p>
-					<textarea style="margin-top: 10px;" class="form-control">
+					<textarea style="margin-top: 10px;" class="form-control"
+						name="comment">
 						</textarea>
-					<button type="button" class="btn btn-secondary"
-						style="margin-left: 10px;" data-dismiss="modal">الغاء</button>
-					<button type="button" class="btn btn-primary" id="okModal"
-						style="margin-left: 10px;">موافق</button>
+
+					<input type="hidden" id="foodMenuId" name="foodMenuId">
+
+
+					<button type="submit" class="btn btn-primary" id="okModal"
+						style="margin-left: 10px;">اضافة</button>
 				</form>
 
 
@@ -121,28 +134,62 @@
 			<div style="flex: 1;">
 
 				<th:block th:each="category : ${listCategory}">
-					<button class="btn" action="#" th:id="${category.id}"
-						th:text="${category.name}" />
+					<button class="btn">
+						<a th:href="@{'/getMenuByCategoryId/' + ${category.id}}"
+							th:text="${category.name}"></a>
+					</button>
 				</th:block>
 				<br>
+
+
+				<th:block th:each="menuFood : ${foodMenuList}">
+					<button class="btnFood" action="#" th:id="${menuFood.id}"
+						th:value="${menuFood.name}" th:text="${menuFood.name}" />
+				</th:block>
+
 
 				<div id="menuDiv"></div>
 
 			</div>
 
 		</div>
-	</div>
-	<div class="modal" id="exampleModalLong" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title"></h5>
+		<div class="container pt-4">
+			<div class="table-responsive">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
 
-				</div>
-				<div class="modal-body"></div>
-				<div class="modal-footer"></div>
+							<th class="text-center">الاسم</th>
+							<th class="text-center">الحجم</th>
+							<th class="text-center">الكمية</th>
+							<th class="text-center">السعر</th>
+							<th class="text-center"></th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+						<tr th:each="foodItemOrder :${foodItemOrderList}">
+							<td th:text="${foodItemOrder.foodMenuName}"></td>
+							<td th:text="${foodItemOrder.size}"></td>
+							<td th:text="${foodItemOrder.qty}"></td>
+							<td th:text="${foodItemOrder.price}"></td>
+							<td>
+								<button>
+									<a th:href="@{'/removeFoodItemOrder/' + ${foodItemOrder.id}}">
+										حذف </a>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="label" style="margin-top: 10px;">السعر الاجمالى</p>
+				<p style="margin-top: 10px;" th:text="${totalPrice}"></p>
+				<button>
+					<a th:href="@{'/calculateFinalPrice'}"> أنهاء الطلب </a>
+				</button>
 			</div>
+
 		</div>
 	</div>
+
 </body>
 </html>

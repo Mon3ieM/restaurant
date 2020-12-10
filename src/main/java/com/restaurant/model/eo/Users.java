@@ -27,6 +27,7 @@ public class Users {
     private Long roleId;
     @Column(name = "USER_NAME")
     private String userName;
+	
 	public String getFullName() {
 		return fullName;
 	}

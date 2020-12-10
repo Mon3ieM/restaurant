@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.restaurant.model.eo.FoodMenu;
+import com.restaurant.model.eo.FoodPrices;
 import com.restaurant.model.eo.Orders;
 import com.restaurant.model.repository.FoodMenuRepository;
+import com.restaurant.model.repository.FoodPriceRepository;
 import com.restaurant.model.repository.OrderItemsRepository;
 import com.restaurant.model.repository.OrdersRepository;
 
@@ -23,10 +25,15 @@ public class OrdersService{
 	@Autowired
 	private OrderItemsRepository orderItemRepo;
 	
+	@Autowired
+	private FoodPriceRepository foodPriceRepo;
 	
 	
-	
-	
+	public FoodPrices getFoodPrice(Long foodMenuId , Long foodSizeId) {
+		// TODO Auto-generated method stub
+		return	foodPriceRepo.getPriceForSelectedMenuItemPerSize(foodMenuId, foodSizeId);
+	}
+
 	
 	
 	public void createNewOrder(Orders eo) {

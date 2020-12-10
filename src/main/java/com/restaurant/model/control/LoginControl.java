@@ -29,7 +29,7 @@ public class LoginControl {
 //		System.out.println("TEST .............. ");
 		Users userDTO = new Users();
 	    model.addAttribute("user", userDTO);
-	    return "Login";
+	    return "test";
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)

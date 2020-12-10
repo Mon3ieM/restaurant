@@ -8,8 +8,7 @@ import com.restaurant.model.eo.FoodPrices;
 
 public interface FoodPriceRepository extends JpaRepository<FoodPrices, Long>{
 
-
+	@Query("select p from FoodPrices p where p.foodMenuId = :foodMenuId and p.foodSizeId = :foodSizeId")
+	public FoodPrices getPriceForSelectedMenuItemPerSize(@Param("foodMenuId") Long foodMenuId, @Param("foodSizeId") Long foodSizeId);
 	
-//	@Query("select p.price from FoodPrices p where p.foodMenuId = :foodMenuId and p.foodSizeId = :foodSizeId")
-//	public Long getPriceForSelectedMenuItemPerSize(@Param("username") String username, @Param("password") String password);
 }

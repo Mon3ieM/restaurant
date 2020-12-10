@@ -29,6 +29,9 @@ public class HomeControl {
 		if (type == 1) {
 			mv = "redirect:/showClients";
 		}
+		else if (type == 2) {
+			mv = "redirect:/showReportType";
+		}
 
 		return mv;
 
