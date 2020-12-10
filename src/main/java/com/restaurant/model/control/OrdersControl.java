@@ -30,10 +30,14 @@ import com.restaurant.model.eo.Users;
 import com.restaurant.model.services.FoodCategoryService;
 import com.restaurant.model.services.FoodMenuService;
 import com.restaurant.model.services.OrdersService;
+import com.restaurant.utils.SessionData;
+
 
 @Controller
 public class OrdersControl {
-
+	@Autowired
+	private SessionData sessionData;
+	
 	@Autowired
 	private OrdersService serv;
 
@@ -51,6 +55,20 @@ public class OrdersControl {
 
 	public List<FoodItemDataDTO> foodItemOrderList = new ArrayList<>();
 
+	@RequestMapping("/enterOrder")
+	public ModelAndView enterOrder() {
+		clearData();
+		foodCategoryList = foodCategoryService.listAllCategoryWithMenu();
+
+		ModelAndView mv = new ModelAndView("OrderPage");
+		mv.addObject("listCategory", foodCategoryList);
+		mv.addObject("foodMenuList", foodMenuList);
+		mv.addObject("newOrderItem", orderItemData);
+		mv.addObject("totalPrice", totalPrice);
+		mv.addObject("foodItemOrderList", foodItemOrderList);
+		return mv;
+	}
+	
 	@RequestMapping("/showOrder")
 	public ModelAndView viewOrderPage() {
 		foodCategoryList = foodCategoryService.listAllCategoryWithMenu();
@@ -63,6 +81,7 @@ public class OrdersControl {
 		mv.addObject("foodItemOrderList", foodItemOrderList);
 		return mv;
 	}
+
 
 	@RequestMapping("/getMenuByCategoryId/{catId}")
 	public String showFoodMenuPerCategory(@PathVariable(name = "catId") long catId) {
@@ -124,17 +143,18 @@ public class OrdersControl {
 
 	@GetMapping("/calculateFinalPrice")
 	public String calculateFinalPrice() {
+		Orders order = new Orders();
 		List<OrderItems> detailItems = new ArrayList<>();
 		for (FoodItemDataDTO fItem : foodItemOrderList) {
 			OrderItems eo = new OrderItems();
 			eo.setFoodPriceId(fItem.getFoodPriceId());
 			eo.setOrderItemsComment(fItem.getComment());
 			eo.setQuantity(fItem.getQty());
+			eo.setOrder(order);
 			detailItems.add(eo);
 		}
-		Orders order = new Orders();
 		order.setOrderItemsList(detailItems);
-		order.setUserId(2L);
+		order.setUserId(sessionData.getLoggedUser().getId());
 
 		serv.createNewOrder(order);
 

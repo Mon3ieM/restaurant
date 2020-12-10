@@ -17,35 +17,38 @@ import com.restaurant.model.eo.Orders;
 import com.restaurant.model.eo.Users;
 import com.restaurant.model.services.OrdersService;
 import com.restaurant.model.services.UsersService;
+import com.restaurant.utils.SessionData;
 
 @Controller
 public class LoginControl {
 
 	@Autowired
 	private UsersService userServ;
-	
+
+	@Autowired
+	private SessionData sessionData;
+
 	@RequestMapping("/")
 	public String viewHomePage(Model model) {
 //		System.out.println("TEST .............. ");
 		Users userDTO = new Users();
-	    model.addAttribute("user", userDTO);
-	    return "test";
-	}
-	
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String findUser(@ModelAttribute("user") Users user) {
-	   
-	Users us = userServ.findByUsernameAndPassword(user.getUserName(), user.getPassword());
-	if(us !=null) {
-	System.err.print(us.getId());
-    return "redirect:/HomePage";
-	}
-	else 
-	{
-		System.err.println("--------------Not Found-----------------");
-	    return "redirect:/";
-	}
+		model.addAttribute("user", userDTO);
+		return "Login";
 	}
 
-	
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String findUser(@ModelAttribute("user") Users user) {
+
+		Users us = userServ.findByUsernameAndPassword(user.getUserName(), user.getPassword());
+
+		if (us != null) {
+			System.err.print(us.getId());
+			sessionData.setLoggedUser(us);
+			return "redirect:/HomePage";
+		} else {
+			System.err.println("--------------Not Found-----------------");
+			return "redirect:/";
+		}
+	}
+
 }

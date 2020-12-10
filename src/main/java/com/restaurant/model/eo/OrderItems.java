@@ -4,6 +4,7 @@ package com.restaurant.model.eo;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +29,7 @@ public class OrderItems {
 //	private Long orderId;
 	
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, optional = false , cascade = CascadeType.PERSIST )
 	@JoinColumn(name = "ORDER_ID")
 	private Orders order;
 

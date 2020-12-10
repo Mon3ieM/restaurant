@@ -13,7 +13,7 @@
 	<nav class="mainHeader">
 		<div class="leftblock">
 				<p class="label1" style="color: white;">اسم المستخدم</p>
-				<p class="label1" style="color: white;">اسم المستخدم</p>			
+				<p  style="color: white;" th:value="${sessionData.loggedUser.userName}" th:field="${sessionData.loggedUser.userName}" th:text="${sessionData.loggedUser.userName}"></p>			
 		</div>
 		<div id="logoBG">
 			<img src="resources/images/Rectangle1.png" />
@@ -37,15 +37,15 @@
 				<div class="card chartBlock">
 					<input type="image" src="resources/images/delivery.jpg"
 						alt="Submit">
-					<p class="label2">ديليفري</p>
+					<a th:href="@{'/homePageFilter/' + ${2}}"><h3 class="label2">ديليفري</h3></a>
 				</div>
 				<div class="card chartBlock">
 					<img src="resources/images/report.jpg">
-					<a th:href="@{'/homePageFilter/' + ${2}}"><h3 class="label2">الجرد والتقارير</h3></a>
+					<a th:href="@{'/homePageFilter/' + ${3}}"><h3 class="label2">الجرد والتقارير</h3></a>
 				</div>
 				<div class="card chartBlock">
 					<input type="image" src="resources/images/store.jpg" alt="Submit">
-					<p class="label2">منظومه المخزن</p>
+					<h3 class="label2">منظومه المخزن</h3>
 				</div>
 			</div>
 			
@@ -54,7 +54,7 @@
 
 				<div class="card chartBlock">
 					<input type="image" src="resources/images/hole.jpg" alt="Submit">
-					<p class="label2">الصاله</p>
+					<h3 class="label2">الصاله</h3>
 				</div>
 
 			</div>

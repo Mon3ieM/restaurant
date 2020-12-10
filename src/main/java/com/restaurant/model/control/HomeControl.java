@@ -12,24 +12,34 @@ import org.springframework.web.servlet.ModelAndView;
 import com.restaurant.model.eo.Clients;
 import com.restaurant.model.eo.Users;
 import com.restaurant.model.services.UsersService;
+import com.restaurant.utils.SessionData;
 
 @Controller
-
 public class HomeControl {
 
+	@Autowired
+	private SessionData sessionData;
+	
+	
+	
 	@RequestMapping("/HomePage")
-	public String viewHomePage(Model model) {
-		System.out.println("TEST .............. ");
-		return "homePage";
+	public ModelAndView viewHomePage(Model model) {
+		ModelAndView mv = new ModelAndView("homePage");
+		mv.addObject("sessionData", sessionData);
+		
+		return mv;
 	}
 
 	@RequestMapping("/homePageFilter/{type}")
 	public String DeliveryHomePage(@PathVariable(name = "type") int type) {
 		String mv = null;
 		if (type == 1) {
-			mv = "redirect:/showClients";
+			mv = "redirect:/enterOrder";
 		}
 		else if (type == 2) {
+			mv = "redirect:/showClients";
+		}
+		else if (type == 3) {
 			mv = "redirect:/showReportType";
 		}
 
