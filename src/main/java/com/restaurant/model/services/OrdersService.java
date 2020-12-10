@@ -20,7 +20,12 @@ public class OrdersService{
 	@Autowired
 	private OrdersRepository repo;
 
-
+	@Autowired
+	private OrderItemsRepository orderItemRepo;
+	
+	
+	
+	
 	
 	
 	
