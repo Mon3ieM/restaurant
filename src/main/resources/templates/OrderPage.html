@@ -10,27 +10,44 @@
 <script src="resources\js\scripts.js"></script>
 <script src="https:/kit.fontawesome.com/868b4e0b54.js"
 	crossorigin="anonymous"></script>
+
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script type="text/javascript">
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script>
 	$(document).ready(function() {
-		var table = $('#myTable').DataTable();
+		$('.btn').click(function() {
+			var catId = $(this).attr("id");
+			$.ajax({
+				type : 'GET',
+				url : '/getMenuByCategoryId/' + catId,
+				success : function(result) {
+					var res = JSON.parse(result);
+					var s = '';
+					for (var i = 0; i < res.length; i++) {
+						s += " <button data-toggle='modal' data-target='#exampleModalLong' type='button' " +
+						" class='btn descitionBTN'>"
+								+ res[i].name
+								+ " </button> </br> ";
+					}
 
-		$('#example tbody').on('click', 'tr', function() {
-			if ($(this).hasClass('selected')) {
-				$(this).removeClass('selected');
-			} else {
-				table.$('tr.selected').removeClass('selected');
-				$(this).addClass('selected');
-			}
-		});
+					$('#menuDiv').html(s);
 
-		$('#button').click(function() {
-			table.row('.selected').remove().draw(false);
+				}
+
+			});
+
 		});
 	});
-</script>
+	$(document).ready(function() {
+	$('#okModal').click(function() {
+		alert("test");
 
+	});
+});
+</script>
 </head>
 <body class="indexBody">
 
@@ -38,7 +55,6 @@
 	<!-- header -->
 
 	<nav class="mainHeader">
-
 
 		<div id="logoBG">
 			<img src="resources/images/Rectangle1.png" />
@@ -56,22 +72,63 @@
 	<!-- center block -->
 
 	<div id="centerblock">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-5"></div>
-				<th:block th:each="fMenu : ${foodMenuList}">
-					<a th:text="${fMenu.name}"/>
 
+		<div style="display: flex;">
+
+
+			<!-- Right content -->
+			<div style="flex: 1;"></div>
+
+			<!-- Left content -->
+			<div style="flex: 1;">
+
+				<th:block th:each="category : ${listCategory}">
+					<button class="btn" action="#" th:id="${category.id}"
+						th:text="${category.name}" />
 				</th:block>
-				<div class="col-md-10">
-					<th:block th:each="category : ${listCategory}">
-						<a th:text="${category.name}"
-							th:href="@{'/getMenuByCategoryId/' + ${category.id}}" />
+				<br>
 
-					</th:block>
+				<div id="menuDiv"></div>
 
+			</div>
 
+		</div>
+	</div>
+	<div class="modal" id="exampleModalLong" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"></h5>
 
+				</div>
+				<div class="modal-body">
+					<form action="#">
+
+						<p class="label" style="margin-top: 10px;">الحجم</p>
+						<select class="size-select" id="name2" dir="rtl"
+							style="margin-right: -10px; margin-top: 10px; width: 100%;">
+							<option selected>الاحجام</option>
+							<option value="1">صغير</option>
+							<option value="2">وسط</option>
+							<option value="3">كبير</option>
+							<option value="4">عائلى</option>
+						</select>
+
+						<p class="label" style="margin-top: 10px;">العدد</p>
+						<input type="number" class="form-control"
+							style="margin-top: 10px;">
+
+						<p class="label" style="margin-top: 10px;">تعليق على الطلب</p>
+						<textarea style="margin-top: 10px;" class="form-control">
+						</textarea>
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						style="margin-left: 10px;" data-dismiss="modal">الغاء</button>
+					<button type="button" class="btn btn-primary" id="okModal"
+						style="margin-left: 10px;">موافق</button>
 				</div>
 			</div>
 		</div>
