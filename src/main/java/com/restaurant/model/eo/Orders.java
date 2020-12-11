@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +34,9 @@ public class Orders {
     private Long isActive;
     @Column(name = "USER_ID")
     private Long userId;
+    
+    @Transient
+    private Clients clients =new Clients();
     
     
     @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL , orphanRemoval = true)
@@ -74,6 +78,12 @@ public class Orders {
 	}
 	public void setOrderItemsList(List<OrderItems> orderItemsList) {
 		this.orderItemsList = orderItemsList;
+	}
+	public Clients getClients() {
+		return clients;
+	}
+	public void setClients(Clients clients) {
+		this.clients = clients;
 	}
 
    

@@ -42,6 +42,9 @@ public class HomeControl {
 		else if (type == 3) {
 			mv = "redirect:/showReportType";
 		}
+		else if (type == 4) {
+			mv = "redirect:/findOrder";
+		}
 
 		return mv;
 
