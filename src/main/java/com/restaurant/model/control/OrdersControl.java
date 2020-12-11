@@ -1,7 +1,9 @@
 package com.restaurant.model.control;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,12 +34,14 @@ import com.restaurant.model.services.FoodMenuService;
 import com.restaurant.model.services.OrdersService;
 import com.restaurant.utils.SessionData;
 
-
 @Controller
 public class OrdersControl {
+	private final String errorMsg_WrongSize = "الحجم غير متاح ";
+	private final String success_Mssg = "تمت العملية بنجاح";
+
 	@Autowired
 	private SessionData sessionData;
-	
+
 	@Autowired
 	private OrdersService serv;
 
@@ -47,18 +51,33 @@ public class OrdersControl {
 	@Autowired
 	private FoodMenuService foodMenuService;
 
+	public Map<Long, List<FoodMenu>> menuData = new HashMap<>();
 	public List<FoodCategoryWithMenuDTO> foodCategoryList = new ArrayList<>();
 	public List<FoodMenu> foodMenuList = new ArrayList<>();
 	public OrderItems orderItemData = new OrderItems();
 	public Long orderItemCount = 0L;
 	public Long totalPrice = 0L;
+	public String msg = "";
+	public Clients clientInOrder = new Clients();
 
 	public List<FoodItemDataDTO> foodItemOrderList = new ArrayList<>();
+
+	private void preparData(List<FoodCategoryWithMenuDTO> foodCategoryList) {
+		for (FoodCategoryWithMenuDTO d : foodCategoryList) {
+			menuData.put(d.getId(), d.getFoodMenuList());
+		}
+	}
 
 	@RequestMapping("/enterOrder")
 	public ModelAndView enterOrder() {
 		clearData();
 		foodCategoryList = foodCategoryService.listAllCategoryWithMenu();
+		preparData(foodCategoryList);
+		Clients c = sessionData.getClientInOrder();
+		if (c != null) {
+			clientInOrder = c;
+			sessionData.setClientInOrder(null);
+		}
 
 		ModelAndView mv = new ModelAndView("OrderPage");
 		mv.addObject("listCategory", foodCategoryList);
@@ -66,26 +85,31 @@ public class OrdersControl {
 		mv.addObject("newOrderItem", orderItemData);
 		mv.addObject("totalPrice", totalPrice);
 		mv.addObject("foodItemOrderList", foodItemOrderList);
+		mv.addObject("msg", msg);
+		mv.addObject("clientData", clientInOrder);
 		return mv;
 	}
-	
+
 	@RequestMapping("/showOrder")
 	public ModelAndView viewOrderPage() {
-		foodCategoryList = foodCategoryService.listAllCategoryWithMenu();
-
+		if (foodCategoryList.isEmpty()) {
+			foodCategoryList = foodCategoryService.listAllCategoryWithMenu();
+			preparData(foodCategoryList);
+		}
 		ModelAndView mv = new ModelAndView("OrderPage");
 		mv.addObject("listCategory", foodCategoryList);
 		mv.addObject("foodMenuList", foodMenuList);
 		mv.addObject("newOrderItem", orderItemData);
 		mv.addObject("totalPrice", totalPrice);
+		mv.addObject("msg", msg);
+		mv.addObject("clientData", clientInOrder);
 		mv.addObject("foodItemOrderList", foodItemOrderList);
 		return mv;
 	}
-
 
 	@RequestMapping("/getMenuByCategoryId/{catId}")
 	public String showFoodMenuPerCategory(@PathVariable(name = "catId") long catId) {
-		foodMenuList = foodMenuService.listAllByCategoryId(catId);
+		foodMenuList = menuData.get(catId);
 		return "redirect:/showOrder";
 	}
 
@@ -95,35 +119,38 @@ public class OrdersControl {
 		for (FoodItemDataDTO d : foodItemOrderList) {
 			if (d.getId().equals(foodId)) {
 				foodItemOrderList.remove(d);
-				totalPrice = totalPrice - d.getPrice();
+				totalPrice = totalPrice - (d.getPrice() * d.getQty());
 				break;
 			}
 		}
 
 		return "redirect:/showOrder";
 	}
-	
+
 	@ResponseBody
 	@GetMapping("/getMenuPrice/{catId}")
 	public String showFoodItemPerCategory1(@PathVariable(name = "catId") long catId) {
-		foodMenuList = foodMenuService.listAllByCategoryId(catId);
-	    Gson gSon = new Gson();
-	    return gSon.toJson(foodMenuService.listAllByCategoryId(catId));
+		foodMenuList = menuData.get(catId);
+		Gson gSon = new Gson();
+		return gSon.toJson(foodMenuService.listAllByCategoryId(catId));
 	}
 
 	@PostMapping(value = "/sendNeededDataAndGetPrice")
-	public String sendNeededDataAndGetPrice(@ModelAttribute("FoodItemDataDTO") FoodItemDataDTO fitemDTO) {
-		orderItemCount += 1;
+	public String addItemToOrder(@ModelAttribute("FoodItemDataDTO") FoodItemDataDTO fitemDTO) {
 		FoodPrices priceObject = serv.getFoodPrice(fitemDTO.getFoodMenuId(), fitemDTO.getFoodSizeId());
+		if (priceObject == null || priceObject.getPrice() == null) {
+			msg = errorMsg_WrongSize;
+		} else {
+			orderItemCount += 1;
+			fitemDTO.setId(orderItemCount);
+			fitemDTO.setPrice(priceObject.getPrice());
+			fitemDTO.setFoodPriceId(priceObject.getId());
+			fitemDTO.setSize(getSizeName(fitemDTO.getFoodSizeId()));
 
-		fitemDTO.setId(orderItemCount);
-		fitemDTO.setPrice(priceObject.getPrice());
-		fitemDTO.setFoodPriceId(priceObject.getId());
-		fitemDTO.setSize(getSizeName(fitemDTO.getFoodSizeId()));
-
-		totalPrice += priceObject.getPrice();
-		foodItemOrderList.add(fitemDTO);
-
+			totalPrice += (priceObject.getPrice() * fitemDTO.getQty());
+			foodItemOrderList.add(fitemDTO);
+			msg = success_Mssg;
+		}
 		return "redirect:/showOrder";
 
 	}
@@ -154,8 +181,11 @@ public class OrdersControl {
 			detailItems.add(eo);
 		}
 		order.setOrderItemsList(detailItems);
-		order.setUserId(sessionData.getLoggedUser().getId());
-
+		if (sessionData.getLoggedUser() != null)
+			order.setUserId(sessionData.getLoggedUser().getId());
+		if(clientInOrder != null && clientInOrder.getId() != null)
+			order.setClientId(clientInOrder.getId());
+		order.setTotalPrice(totalPrice);
 		serv.createNewOrder(order);
 
 		clearData();
@@ -169,6 +199,7 @@ public class OrdersControl {
 		orderItemCount = 0L;
 		totalPrice = 0L;
 		foodItemOrderList = new ArrayList<>();
+		clientInOrder = new Clients();
 	}
 
 }

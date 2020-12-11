@@ -34,11 +34,28 @@ public class Orders {
     @Column(name = "USER_ID")
     private Long userId;
     
+    @Column(name = "DELIVERY_ID")
+    private Long deliveryId;
+    
     
     @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL , orphanRemoval = true)
     List<OrderItems> orderItemsList ;
+    @Column(name = "TOTAL_PRICE")
+    private Long totalPrice;
     
     
+	public Long getDeliveryId() {
+		return deliveryId;
+	}
+	public void setDeliveryId(Long deliveryId) {
+		this.deliveryId = deliveryId;
+	}
+	public Long getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(Long totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 	public Long getClientId() {
 		return clientId;
 	}
