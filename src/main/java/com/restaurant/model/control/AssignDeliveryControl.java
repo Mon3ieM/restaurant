@@ -7,14 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.reports.report;
 import com.restaurant.model.eo.Clients;
 import com.restaurant.model.eo.Orders;
 import com.restaurant.model.eo.Users;
 import com.restaurant.model.services.OrdersService;
+import com.restaurant.model.services.UsersService;
 
 @Controller
 public class AssignDeliveryControl {
@@ -22,12 +25,17 @@ public class AssignDeliveryControl {
 	public Orders renderOrder=new Orders();
 	public Orders or=new Orders();
 	public String msg = "";
-	public List<Users> delivery=new ArrayList<>();
+	public List<Users> delivery=new ArrayList<Users>();
 	@Autowired
 	private OrdersService serv;
-
+	
+	@Autowired
+	private UsersService userserv;
+	
 	@RequestMapping("/findOrder")
 	public ModelAndView DeliveryAssign() {
+		delivery= userserv.findByRoleId(3L);
+		
 		ModelAndView mv = new ModelAndView("AssignDelivery");
 		mv.addObject("or", or);
 		mv.addObject("delivery", delivery);
@@ -50,5 +58,14 @@ public class AssignDeliveryControl {
 		}
 		return "redirect:/findOrder";
 	}
+	
+	@PostMapping(value = "/AddDelivery")
+	public String AddDelivery(@ModelAttribute("Users") Users u) {
+		System.out.println(u.getId());
+
+		return "redirect:/findOrder";
+	}
+	
+
 
 }

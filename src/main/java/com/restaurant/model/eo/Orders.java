@@ -1,6 +1,4 @@
 package com.restaurant.model.eo;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,13 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
-
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @SequenceGenerator(name = "Orders_Seq_Gen", sequenceName = "ORDERS_SEQ",
@@ -35,14 +29,32 @@ public class Orders {
     @Column(name = "USER_ID")
     private Long userId;
     
+
     @Transient
     private Clients clients =new Clients();
-    
-    
+
+    @Column(name = "DELIVERY_ID")
+    private Long deliveryId;
+
+
     @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL , orphanRemoval = true)
     List<OrderItems> orderItemsList ;
+    @Column(name = "TOTAL_PRICE")
+    private Long totalPrice;
     
     
+	public Long getDeliveryId() {
+		return deliveryId;
+	}
+	public void setDeliveryId(Long deliveryId) {
+		this.deliveryId = deliveryId;
+	}
+	public Long getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(Long totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 	public Long getClientId() {
 		return clientId;
 	}

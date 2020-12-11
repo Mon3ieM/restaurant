@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.restaurant.model.eo.Clients;
 import com.restaurant.model.services.ClientsService;
+import com.restaurant.utils.SessionData;
 
 @Controller
 public class ClientsControl {
@@ -19,6 +21,9 @@ public class ClientsControl {
 	@Autowired
 	ClientsService clientServ;
 
+	@Autowired
+	SessionData sessionData;
+	
 	public Clients NewCL = new Clients();
 	public Clients cl = new Clients();
 	public String msg = "";
@@ -32,6 +37,16 @@ public class ClientsControl {
 
 		return mv;
 
+	}
+
+	@GetMapping(value = "/continueWithOrder")
+	public String continueWithOrder() {
+		if (cl == null || cl.getId() == null) {
+			msg = "لم يتم اختيار العميل";
+			return "redirect:/showClients";
+		}
+		sessionData.setClientInOrder(cl);
+		return "redirect:/enterOrder";
 	}
 
 	@RequestMapping(value = "/findClientByMobile", method = RequestMethod.POST)

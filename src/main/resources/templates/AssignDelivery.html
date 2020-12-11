@@ -105,14 +105,22 @@
 			</div>
 			<div class="card" dir="rtl">
 				<div class="card-body">
-					<h5 class="card-title" style="float: right;">اضافه طيار للاوردر</h5>
+					<form action="#" th:action="@{/AddDelivery}" th:object="${Users}" method="post">
+						<h5 class="card-title" style="float: right;">اضافه طيار
+							للاوردر</h5>
 						<div class="col-md-12">
-								<select class="custom-select" name="DeliveryName"
-									style="float: right;" dir="rtl">
-									<option th:each="DeliveryName:${delivery}"
-										th:text="${delivery.name}" />
-								</select>
-							</div>
+							<select class="custom-select" name="id"
+								style="float: right;" dir="rtl">
+								<option th:each="deliveryName:${delivery}"
+									th:text="${deliveryName.fullName}" th:value="${deliveryName.id}"/>
+							</select>
+						</div>
+						<div style="float: right; margin-right: 20px;">
+							<button type="submit" class="btn mapsBTN">
+								اضافه <i class="fas"></i>
+							</button>
+						</div>
+					</form>
 				</div>
 			</div>
 

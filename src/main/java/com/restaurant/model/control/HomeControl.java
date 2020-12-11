@@ -29,6 +29,8 @@ public class HomeControl {
 		
 		return mv;
 	}
+	
+
 
 	@RequestMapping("/homePageFilter/{type}")
 	public String DeliveryHomePage(@PathVariable(name = "type") int type) {
