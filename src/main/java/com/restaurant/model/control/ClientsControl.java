@@ -23,7 +23,7 @@ public class ClientsControl {
 
 	@Autowired
 	SessionData sessionData;
-	
+
 	public Clients NewCL = new Clients();
 	public Clients cl = new Clients();
 	public String msg = "";
@@ -34,6 +34,17 @@ public class ClientsControl {
 		mv.addObject("NewCL", NewCL);
 		mv.addObject("cl", cl);
 		mv.addObject("msg", msg);
+
+		return mv;
+
+	}
+	
+	@RequestMapping("/firstTimeDeliveryHomePage")
+	public ModelAndView firstTimeDeliveryHomePage() {
+		ModelAndView mv = new ModelAndView("Clients");
+		mv.addObject("NewCL", new Clients());
+		mv.addObject("cl", new Clients());
+		mv.addObject("msg", "");
 
 		return mv;
 
@@ -51,36 +62,43 @@ public class ClientsControl {
 
 	@RequestMapping(value = "/findClientByMobile", method = RequestMethod.POST)
 	public String GetClientBYMobile(@ModelAttribute("cl") Clients client) {
-		List<Clients> findClients = clientServ.findbyMobile1(client.getMobile1());
+		if (client.getMobile1() != null) {
+			List<Clients> findClients = clientServ.findbyMobile1(client.getMobile1());
 
-		if (!findClients.isEmpty()) {
-			Clients result = findClients.get(0);
-			cl = result;
-			msg = "";
+			if (!findClients.isEmpty()) {
+				Clients result = findClients.get(0);
+				cl = result;
+				msg = "";
+			} else {
+				cl = new Clients();
+				msg = "العميل غير موجود";
+			}
 		} else {
-			cl = new Clients();
 			msg = "العميل غير موجود";
 		}
-
 		return "redirect:/showClients";
 	}
 
 	@RequestMapping(value = "/AddNewClient", method = RequestMethod.POST)
 	public String AddNewClient(@ModelAttribute("NewCL") Clients newClient) {
 
-		List<Clients> findClients = clientServ.findbyMobile1(newClient.getMobile1());
+		if (newClient.getName() != null && newClient.getMobile1() != null && newClient.getAddress() != null) {
+			List<Clients> findClients = clientServ.findbyMobile1(newClient.getMobile1());
 
-		if (!findClients.isEmpty()) {
-			Clients result = findClients.get(0);
-			cl = result;
-			msg = "رقم الموبيل موجود بالفعل";
+			if (!findClients.isEmpty()) {
+				Clients result = findClients.get(0);
+				cl = result;
+				msg = "رقم الموبيل موجود بالفعل";
 
+			} else {
+
+				clientServ.save(newClient);
+				cl = newClient;
+				NewCL = new Clients();
+				msg = "تم الاضافه بنجاح ";
+			}
 		} else {
-
-			clientServ.save(newClient);
-			cl = newClient;
-			NewCL = new Clients();
-			msg = "تم الاضافه بنجاح ";
+			msg = "برجاء استكمال البيانات";
 		}
 		return "redirect:/showClients";
 	}

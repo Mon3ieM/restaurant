@@ -42,6 +42,13 @@ public class OrdersService {
 		repo.save(eo);
 	}
 
+	public Orders getDeliverOrderAllData(Long id) {
+		Orders order = repo.getDeliveryOrders(id);
+		if (order != null && order.getClientId() != null)
+			order.setClients(clientRepo.getOne(order.getClientId()));
+		return order;
+	}
+
 	public Orders getAllData(Long id) {
 		Orders order = repo.getOne(id);
 		order.setClients(clientRepo.getOne(order.getClientId()));
@@ -61,6 +68,10 @@ public class OrdersService {
 	public void delete(Long id) {
 		repo.deleteById(id);
 
+	}
+
+	public void update(Orders eo) {
+		repo.save(eo);
 	}
 
 }

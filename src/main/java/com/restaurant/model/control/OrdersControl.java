@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonParser;
 import com.google.gson.Gson;
 import com.reports.report;
+import com.restaurant.model.dto.CheuqeDTO;
 import com.restaurant.model.dto.FoodCategoryWithMenuDTO;
 import com.restaurant.model.dto.FoodItemDataDTO;
 import com.restaurant.model.eo.Clients;
@@ -32,6 +33,7 @@ import com.restaurant.model.eo.Users;
 import com.restaurant.model.services.FoodCategoryService;
 import com.restaurant.model.services.FoodMenuService;
 import com.restaurant.model.services.OrdersService;
+import com.restaurant.utils.PrintCheque;
 import com.restaurant.utils.SessionData;
 
 @Controller
@@ -183,13 +185,30 @@ public class OrdersControl {
 		order.setOrderItemsList(detailItems);
 		if (sessionData.getLoggedUser() != null)
 			order.setUserId(sessionData.getLoggedUser().getId());
-		if(clientInOrder != null && clientInOrder.getId() != null)
+		if (clientInOrder != null && clientInOrder.getId() != null)
 			order.setClientId(clientInOrder.getId());
 		order.setTotalPrice(totalPrice);
 		serv.createNewOrder(order);
 
+		//preparCheuqeAndPrint(order);
+
 		clearData();
 		return "redirect:/showOrder";
+	}
+
+	private void preparCheuqeAndPrint(Orders order) {
+
+		CheuqeDTO cheq = new CheuqeDTO();
+		cheq.setOrder(order);
+
+		cheq.setFoodItemData(foodItemOrderList);
+		if (sessionData.getLoggedUser() != null)
+			cheq.setUser(sessionData.getLoggedUser());
+		if (clientInOrder != null && clientInOrder.getId() != null)
+			cheq.setClient(clientInOrder);
+
+		PrintCheque pc = new PrintCheque(cheq);
+		pc.printAction();
 	}
 
 	private void clearData() {

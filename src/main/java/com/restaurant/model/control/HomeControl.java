@@ -39,7 +39,7 @@ public class HomeControl {
 			mv = "redirect:/enterOrder";
 		}
 		else if (type == 2) {
-			mv = "redirect:/showClients";
+			mv = "redirect:/firstTimeDeliveryHomePage";
 		}
 		else if (type == 3) {
 			mv = "redirect:/showReportType";
