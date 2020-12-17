@@ -18,7 +18,6 @@ public class UsersService {
 
 	
 	
-	
 	public Users findByUsernameAndPassword(String username , String password) {
 		return repo.findByUsernameAndPassword(username, password);
 	}

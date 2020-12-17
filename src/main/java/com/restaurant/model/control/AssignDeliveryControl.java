@@ -22,50 +22,53 @@ import com.restaurant.model.services.UsersService;
 @Controller
 public class AssignDeliveryControl {
 
-	public Orders renderOrder=new Orders();
-	public Orders or=new Orders();
+	public Orders renderOrder = new Orders();
+	public Orders or = new Orders();
 	public String msg = "";
-	public List<Users> delivery=new ArrayList<Users>();
+	public List<Users> delivery = new ArrayList<Users>();
+
 	@Autowired
 	private OrdersService serv;
-	
+
 	@Autowired
 	private UsersService userserv;
-	
+
 	@RequestMapping("/findOrder")
 	public ModelAndView DeliveryAssign() {
-		delivery= userserv.findByRoleId(3L);
-		
+		delivery = userserv.findByRoleId(3L);
+
 		ModelAndView mv = new ModelAndView("AssignDelivery");
 		mv.addObject("or", or);
 		mv.addObject("delivery", delivery);
+		mv.addObject("msg", msg);
 		return mv;
 
 	}
 
-	
 	@RequestMapping(value = "/findOrderByID", method = RequestMethod.POST)
 	public String findOrderByID(@ModelAttribute("order") Orders order) {
-		System.out.println(order.getId());
-		renderOrder=serv.getAllData(order.getId());
-		if (renderOrder != null) {
-			System.out.println(renderOrder.getClients().getName());
-			or = renderOrder;
-			msg = "";
-		} else {
-			or = new Orders();
+		if (order.getId() != null) {
+			renderOrder = serv.getDeliverOrderAllData(order.getId());
+			if (renderOrder != null && renderOrder.getId() != null) {
+				or = renderOrder;
+				msg = "";
+			} else {
+				or = new Orders();
+				msg = "الاوردر غير موجود";
+			}
+		}else {
 			msg = "الاوردر غير موجود";
 		}
 		return "redirect:/findOrder";
 	}
-	
+
 	@PostMapping(value = "/AddDelivery")
 	public String AddDelivery(@ModelAttribute("Users") Users u) {
 		System.out.println(u.getId());
-
+		or.setDeliveryId(u.getId());
+		serv.update(or);
+		msg = "تمت التعيم بنجاح";
 		return "redirect:/findOrder";
 	}
-	
-
 
 }

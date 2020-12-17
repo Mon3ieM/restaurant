@@ -31,7 +31,7 @@
 			<img src="resources/images/Rectangle1.png" />
 		</div>
 		<div id="logo">
-			<img src="resources/images/logo.png" />
+		<a th:href="@{'/HomePage'}"> <img src="resources/images/logo.png" /></a>
 		</div>
 		<div id="systemnamebg_0">
 			<p class="systemTitle">دوق واحكم بنفسك</p>
@@ -53,7 +53,7 @@
 
 						<div style="float: right;">
 							<input type="text" th:field="*{id}" class="form-control"
-								placeholder="رقم العميل" aria-label="Username"
+								placeholder="رقم الاوردر" aria-label="Username"
 								aria-describedby="basic-addon1">
 
 						</div>
@@ -105,14 +105,16 @@
 			</div>
 			<div class="card" dir="rtl">
 				<div class="card-body">
-					<form action="#" th:action="@{/AddDelivery}" th:object="${Users}" method="post">
+					<form action="#" th:action="@{/AddDelivery}" th:object="${Users}"
+						method="post">
 						<h5 class="card-title" style="float: right;">اضافه طيار
 							للاوردر</h5>
 						<div class="col-md-12">
-							<select class="custom-select" name="id"
-								style="float: right;" dir="rtl">
+							<select class="custom-select" name="id" style="float: right;"
+								dir="rtl">
 								<option th:each="deliveryName:${delivery}"
-									th:text="${deliveryName.fullName}" th:value="${deliveryName.id}"/>
+									th:text="${deliveryName.fullName}"
+									th:value="${deliveryName.id}" />
 							</select>
 						</div>
 						<div style="float: right; margin-right: 20px;">
