@@ -1,7 +1,16 @@
 package com.reports;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintException;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -25,4 +34,11 @@ public class print {
 		}
 	}
 
+	public void test() throws DocumentException, PrintException {
+		DocPrintJob job = PrintServiceLookup.lookupDefaultPrintService().createPrintJob();
+		byte[] bytes = { 27, 100, 3 };
+		DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+		Doc doc = new SimpleDoc(bytes, flavor, null);
+		job.print(doc, null);
+	}
 }

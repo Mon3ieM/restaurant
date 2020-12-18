@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.print.PrintException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,9 +77,9 @@ public class LoginControl {
          
     }
 	@GetMapping("/print")
-    public void print(HttpServletResponse response) throws DocumentException, IOException {
+    public void print(HttpServletResponse response) throws DocumentException, IOException, com.itextpdf.text.DocumentException, PrintException {
 		com.reports.print p =new com.reports.print();
-		p.testprint();
+		p.test();
          
          
     }
