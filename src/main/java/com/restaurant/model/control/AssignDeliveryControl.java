@@ -48,15 +48,20 @@ public class AssignDeliveryControl {
 	@RequestMapping(value = "/findOrderByID", method = RequestMethod.POST)
 	public String findOrderByID(@ModelAttribute("order") Orders order) {
 		if (order.getId() != null) {
+			System.out.println("insid Control");
 			renderOrder = serv.getDeliverOrderAllData(order.getId());
 			if (renderOrder != null && renderOrder.getId() != null) {
+				System.out.println("insid Control FOund" + renderOrder.getClients().getName());
 				or = renderOrder;
 				msg = "";
 			} else {
+				System.out.println("insid Control No Found");
 				or = new Orders();
 				msg = "الاوردر غير موجود";
 			}
-		}else {
+		} else {
+
+			or = new Orders();
 			msg = "الاوردر غير موجود";
 		}
 		return "redirect:/findOrder";
@@ -65,9 +70,11 @@ public class AssignDeliveryControl {
 	@PostMapping(value = "/AddDelivery")
 	public String AddDelivery(@ModelAttribute("Users") Users u) {
 		System.out.println(u.getId());
-		or.setDeliveryId(u.getId());
-		serv.update(or);
-		msg = "تمت التعيم بنجاح";
+		if (or.getId() != null) {
+			or.setDeliveryId(u.getId());
+			serv.update(or);
+			msg = "تم التعين بنجاح";
+		}
 		return "redirect:/findOrder";
 	}
 

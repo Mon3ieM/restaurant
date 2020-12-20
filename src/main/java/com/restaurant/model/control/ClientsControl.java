@@ -38,7 +38,7 @@ public class ClientsControl {
 		return mv;
 
 	}
-	
+
 	@RequestMapping("/firstTimeDeliveryHomePage")
 	public ModelAndView firstTimeDeliveryHomePage() {
 		ModelAndView mv = new ModelAndView("Clients");
@@ -82,7 +82,9 @@ public class ClientsControl {
 	@RequestMapping(value = "/AddNewClient", method = RequestMethod.POST)
 	public String AddNewClient(@ModelAttribute("NewCL") Clients newClient) {
 
-		if (newClient.getName() != null && newClient.getMobile1() != null && newClient.getAddress() != null) {
+		if (newClient.getName() != null && newClient.getMobile1() != null && newClient.getAddress() != null
+				&& !newClient.getName().isBlank() && !newClient.getMobile1().isBlank()
+				&& !newClient.getAddress().isBlank()) {
 			List<Clients> findClients = clientServ.findbyMobile1(newClient.getMobile1());
 
 			if (!findClients.isEmpty()) {
@@ -105,13 +107,17 @@ public class ClientsControl {
 
 	@RequestMapping(value = "/UpdateClient", method = RequestMethod.POST)
 	public String UpdateClient(@ModelAttribute("cl") Clients ModifyClient) {
+		if (ModifyClient.getName() != null && ModifyClient.getMobile1() != null && ModifyClient.getAddress() != null
+				&& !ModifyClient.getName().isBlank() && !ModifyClient.getMobile1().isBlank()
+				&& !ModifyClient.getAddress().isBlank()) {
+			clientServ.save(ModifyClient);
 
-		clientServ.save(ModifyClient);
+			cl = ModifyClient;
 
-		cl = ModifyClient;
-
-		msg = "تم التعديل بنجاح ";
-
+			msg = "تم التعديل بنجاح ";
+		} else {
+			msg = "برجاء استكمال البيانات";
+		}
 		return "redirect:/showClients";
 	}
 

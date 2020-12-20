@@ -31,7 +31,7 @@ public class Orders {
     
 
     @Transient
-    private Clients clients =new Clients();
+    private Clients clients = new Clients();
 
     @Column(name = "DELIVERY_ID")
     private Long deliveryId;
@@ -92,6 +92,8 @@ public class Orders {
 		this.orderItemsList = orderItemsList;
 	}
 	public Clients getClients() {
+		if(clients == null)
+			clients = new Clients();
 		return clients;
 	}
 	public void setClients(Clients clients) {

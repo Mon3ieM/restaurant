@@ -43,7 +43,7 @@ public class LoginControl {
 //		System.out.println("TEST .............. ");
 		Users userDTO = new Users();
 		model.addAttribute("user", userDTO);
-		return "test";
+		return "Login";
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -61,27 +61,7 @@ public class LoginControl {
 		}
 	}
 	
-	@GetMapping("/pdf")
-    public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
-        response.setContentType("application/pdf");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String currentDateTime = dateFormatter.format(new Date());
-         
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
-        response.setHeader(headerKey, headerValue);
-         
-         
-        PDFExporter exporter = new PDFExporter();
-        exporter.export(response);
-         
-    }
-	@GetMapping("/print")
-    public void print(HttpServletResponse response) throws DocumentException, IOException, com.itextpdf.text.DocumentException, PrintException {
-		com.reports.print p =new com.reports.print();
-		p.test();
-         
-         
-    }
+
+
 
 }

@@ -31,8 +31,8 @@ public class FoodCategory{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FOOD_CATEGORY_Seq_Gen")
     private Long id;
 
-	@Column(name = "IS_ACTIVE")
-    private Long isActive;
+
+   
     private String name;
     
  
@@ -44,13 +44,7 @@ public class FoodCategory{
 		this.id = id;
 	}
 
-	public Long getIsActive() {
-		return isActive;
-	}
 
-	public void setIsActive(Long isActive) {
-		this.isActive = isActive;
-	}
 
 	public String getName() {
 		return name;

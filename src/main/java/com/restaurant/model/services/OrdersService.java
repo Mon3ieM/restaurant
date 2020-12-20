@@ -44,14 +44,19 @@ public class OrdersService {
 
 	public Orders getDeliverOrderAllData(Long id) {
 		Orders order = repo.getDeliveryOrders(id);
-		if (order != null && order.getClientId() != null)
+		System.out.println(id + "______");
+		if (order != null && order.getClientId() != null) {
+			System.out.println(order.getClientId() + "______");
 			order.setClients(clientRepo.getOne(order.getClientId()));
+		}
 		return order;
 	}
 
 	public Orders getAllData(Long id) {
 		Orders order = repo.getOne(id);
+		
 		order.setClients(clientRepo.getOne(order.getClientId()));
+		
 		return order;
 	}
 

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.print.PrintException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.google.gson.Gson;
+import com.lowagie.text.DocumentException;
+import com.reports.PDFExporter;
 import com.reports.report;
 import com.restaurant.model.dto.CheuqeDTO;
 import com.restaurant.model.dto.FoodCategoryWithMenuDTO;
@@ -33,7 +37,7 @@ import com.restaurant.model.eo.Users;
 import com.restaurant.model.services.FoodCategoryService;
 import com.restaurant.model.services.FoodMenuService;
 import com.restaurant.model.services.OrdersService;
-import com.restaurant.utils.PrintCheque;
+
 import com.restaurant.utils.SessionData;
 
 @Controller
@@ -172,31 +176,35 @@ public class OrdersControl {
 
 	@GetMapping("/calculateFinalPrice")
 	public String calculateFinalPrice() {
-		Orders order = new Orders();
-		List<OrderItems> detailItems = new ArrayList<>();
-		for (FoodItemDataDTO fItem : foodItemOrderList) {
-			OrderItems eo = new OrderItems();
-			eo.setFoodPriceId(fItem.getFoodPriceId());
-			eo.setOrderItemsComment(fItem.getComment());
-			eo.setQuantity(fItem.getQty());
-			eo.setOrder(order);
-			detailItems.add(eo);
+		try {
+			Orders order = new Orders();
+			List<OrderItems> detailItems = new ArrayList<>();
+			for (FoodItemDataDTO fItem : foodItemOrderList) {
+				OrderItems eo = new OrderItems();
+				eo.setFoodPriceId(fItem.getFoodPriceId());
+				eo.setOrderItemsComment(fItem.getComment());
+				eo.setQuantity(fItem.getQty());
+				eo.setOrder(order);
+				detailItems.add(eo);
+			}
+			order.setOrderItemsList(detailItems);
+			if (sessionData.getLoggedUser() != null)
+				order.setUserId(sessionData.getLoggedUser().getId());
+			if (clientInOrder != null && clientInOrder.getId() != null)
+				order.setClientId(clientInOrder.getId());
+			order.setTotalPrice(totalPrice);
+			serv.createNewOrder(order);
+
+			preparCheuqeAndPrint(order);
+			clearData();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			msg = "تعذر الطباعة";
 		}
-		order.setOrderItemsList(detailItems);
-		if (sessionData.getLoggedUser() != null)
-			order.setUserId(sessionData.getLoggedUser().getId());
-		if (clientInOrder != null && clientInOrder.getId() != null)
-			order.setClientId(clientInOrder.getId());
-		order.setTotalPrice(totalPrice);
-		serv.createNewOrder(order);
-
-		//preparCheuqeAndPrint(order);
-
-		clearData();
 		return "redirect:/showOrder";
 	}
 
-	private void preparCheuqeAndPrint(Orders order) {
+	private void preparCheuqeAndPrint(Orders order) throws DocumentException, PrintException {
 
 		CheuqeDTO cheq = new CheuqeDTO();
 		cheq.setOrder(order);
@@ -206,9 +214,8 @@ public class OrdersControl {
 			cheq.setUser(sessionData.getLoggedUser());
 		if (clientInOrder != null && clientInOrder.getId() != null)
 			cheq.setClient(clientInOrder);
+		PDFExporter.printCheque(cheq);
 
-		PrintCheque pc = new PrintCheque(cheq);
-		pc.printAction();
 	}
 
 	private void clearData() {

@@ -33,8 +33,7 @@ public class FoodMenu {
 	@Column(nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FOOD_MENU_Seq_Gen")
 	private Long id;
-	@Column(name = "IS_ACTIVE")
-	private Long isActive;
+
 	private String name;
 	
 	
@@ -53,12 +52,7 @@ public class FoodMenu {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getIsActive() {
-		return isActive;
-	}
-	public void setIsActive(Long isActive) {
-		this.isActive = isActive;
-	}
+
 	public String getName() {
 		return name;
 	}
