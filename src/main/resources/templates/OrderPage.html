@@ -1,7 +1,7 @@
 <html dir="rtl" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>امانة جدة</title>
+<title>طلب اوردر شلتوت</title>
 <link rel="stylesheet" href="resources\css\bootstrap.min.css"
 	type="text/css" />
 <link href="resources\css\styles.css" rel="stylesheet" type="text/css">
@@ -87,15 +87,7 @@
 	<div id="centerblock">
 
 		<div class="container-fluid">
-			<div class="row" dir="rtl">
-				<div class="col-md-6 lineDiv" dir="rtl">
-				<h5 th:text="${clientData.name}"></h5>
-				<h5 th:text="${clientData.address}"></h5>
-				</div>
-				<div class="col-md-6 lineDiv" dir="rtl">
-					<h5 th:text="${msg}"></h5>
-				</div>
-			</div>
+
 			<div class="row" dir="rtl" id="fieldsForm">
 				<div class="col-md-6 lineDiv">
 					<div class="row" style="border-bottom: double;" dir="rtl">
@@ -122,6 +114,18 @@
 					</div>
 				</div>
 				<div class="col-md-6 lineDiv">
+					<table class="table table-bordered">
+						<tr>
+							<th>اسم العميل</th>
+							<th>عنوان العميل</th>
+						</tr>
+						<tr>
+							<td th:text="${clientData.name}"></td>
+							<td th:text="${clientData.address}"></td>
+
+						</tr>
+					</table>
+					<h5 th:text="${msg}"></h5>
 					<form action="#" th:action="@{/sendNeededDataAndGetPrice}"
 						th:object="${FoodItemDataDTO}" method="post">
 						<input type="text" class="form-control" id="foodName"
@@ -133,7 +137,6 @@
 							<option value="1">صغير</option>
 							<option value="2">وسط</option>
 							<option value="3">كبير</option>
-							<option value="4">عائلى</option>
 						</select> <input type="number" class="form-control" placeholder="العدد"
 							id="qty" style="margin-top: 10px;" name="qty"> <input
 							type="text" style="margin-top: 10px;" class="form-control"
@@ -142,33 +145,32 @@
 						<button type="submit" class="btn btn-primary" id="okModal"
 							style="margin-top: 10px; width: 20%">اضافة</button>
 					</form>
-				</div>
-			</div>
-			<div class="row" dir="rtl" id="fieldsForm">
-				<table>
 
-					<tr>
-						<td>
-							<p class="label" style="margin-top: 10px;">السعر الاجمالى</p>
-						</td>
-						<td>
-							<p style="margin-right: 10px; margin-top: 10px;"
-								th:text="${totalPrice}"></p>
-						</td>
-					</tr>
-					<tr>
-					</tr>
-					<tr>
-						<td><button class="btn btn-success">
-								<a style="color: white" th:href="@{'/calculateFinalPrice'}">
-									أنهاء الطلب </a>
-							</button></td>
-					</tr>
-				</table>
-			</div>
-			<div class="row" dir="rtl" id="fieldsForm">
-				<div class="container pt-4">
+
+
 					<div class="table-responsive">
+						<table>
+
+							<tr>
+								<td>
+									<p class="label" style="margin-top: 10px;">السعر الاجمالى</p>
+								</td>
+								<td>
+									<p style="margin-right: 10px; margin-top: 10px;"
+										th:text="${totalPrice}"></p>
+								</td>
+							</tr>
+							<tr>
+							</tr>
+							<tr>
+								<td><button class="btn btn-success">
+										<a style="color: white" th:href="@{'/calculateFinalPrice'}">
+											أنهاء الطلب </a>
+									</button></td>
+							</tr>
+						</table>
+
+
 						<table class="table table-bordered">
 							<thead>
 								<tr>
@@ -197,10 +199,16 @@
 							</tbody>
 						</table>
 
+
+
 					</div>
 
 				</div>
+
+
 			</div>
+			<div class="row" dir="rtl" id="fieldsForm"></div>
+
 
 
 		</div>

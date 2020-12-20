@@ -1,5 +1,8 @@
 package com.restaurant.model.services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.border.AbstractBorder;
@@ -58,6 +61,23 @@ public class OrdersService {
 		order.setClients(clientRepo.getOne(order.getClientId()));
 		
 		return order;
+	}
+	public Long getAllAmount( ) {
+		System.out.println("test------------------");
+		Long totalAmount = 0L;
+	
+		try {
+		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+		    String strDate= formatter.format(new Date());  
+		    Date date;
+			date = formatter.parse(strDate);
+			totalAmount = repo.getTotalAmount(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return totalAmount;
 	}
 
 	public List<Orders> listAll() {

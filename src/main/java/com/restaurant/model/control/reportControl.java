@@ -1,21 +1,22 @@
 package com.restaurant.model.control;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.reports.report;
 import com.restaurant.model.eo.Users;
+import com.restaurant.model.services.FoodCategoryService;
+import com.restaurant.model.services.OrdersService;
 
 @Controller
 public class reportControl {
@@ -23,6 +24,9 @@ public class reportControl {
 	static List<report> reptype = null;
 	static List<Users> user = null;
 	static List<Users> results = new ArrayList<Users>();
+	
+	@Autowired
+	private OrdersService oServece;
 
 	static {
 		user = new ArrayList<>();
@@ -43,12 +47,6 @@ public class reportControl {
 		u1.setUserName("Mahmoud");
 		u1.setRoleId(2L);
 		user.add(u1);
-
-		reptype.add(new report("1", "Mostafa"));
-		reptype.add(new report("2", "Talia"));
-		reptype.add(new report("3", "Mayada"));
-		reptype.add(new report("4", "Mon3em"));
-		reptype.add(new report("5", "Mahmoud"));
 	}
 
 	@RequestMapping("/showReportType")
@@ -67,6 +65,8 @@ public class reportControl {
 			mv = "redirect:/showCasher";
 		} else if (type == 3) {
 			mv = "redirect:/showGenerl";
+		}else if (type == 4) {
+			mv = "redirect:/showDailyReport";
 		}
 		return mv;
 	}
@@ -94,6 +94,16 @@ public class reportControl {
 		ModelAndView mv = new ModelAndView("ReportsCasher");
 		mv.addObject("casher", casherUsers);
 		mv.addObject("reportResult", results);
+		return mv;
+	}
+
+	@GetMapping("/showDailyReport")
+	public ModelAndView showDailyReport() {
+		report rep=new report();
+		rep.setTo(new Date().toLocaleString().toString());
+		rep.setTotalAmount(oServece.getAllAmount());
+		ModelAndView mv = new ModelAndView("DailyReports");
+		mv.addObject("reportResult", rep);
 		return mv;
 	}
 

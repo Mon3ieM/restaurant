@@ -1,6 +1,8 @@
 package com.restaurant.model.control;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -187,6 +189,15 @@ public class OrdersControl {
 				eo.setOrder(order);
 				detailItems.add(eo);
 			}
+			
+		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+		    String strDate= formatter.format(new Date());  
+		    Date date = formatter.parse(strDate);
+			order.setCreationDate(date);
+			
+			
+			
+			
 			order.setOrderItemsList(detailItems);
 			if (sessionData.getLoggedUser() != null)
 				order.setUserId(sessionData.getLoggedUser().getId());
@@ -194,7 +205,6 @@ public class OrdersControl {
 				order.setClientId(clientInOrder.getId());
 			order.setTotalPrice(totalPrice);
 			serv.createNewOrder(order);
-
 			preparCheuqeAndPrint(order);
 			clearData();
 		} catch (Exception ex) {

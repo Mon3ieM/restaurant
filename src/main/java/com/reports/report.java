@@ -4,11 +4,7 @@ import java.util.Date;
 
 public class report {
 
-	public report(String id, String name) {
-		// TODO Auto-generated constructor stub
-		this.setId(id);
-		this.setName(name);
-	}
+	
 	public String getId() {
 		return id;
 	}
@@ -39,6 +35,13 @@ public class report {
 	
 	String deliveryName;
 	String From;
+	long totalAmount;
+	public long getTotalAmount() {
+		return totalAmount;
+	}
+	public void setTotalAmount(long totalAmount) {
+		this.totalAmount = totalAmount;
+	}
 	public String getReportType() {
 		return reportType;
 	}
