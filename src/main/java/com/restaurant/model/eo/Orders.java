@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
@@ -30,6 +32,7 @@ public class Orders {
 	@Column(name = "USER_ID")
 	private Long userId;
 	@Column(name = "CERATION_DATE")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 
 	@Transient

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.reports.report;
+import com.restaurant.model.dto.ReportDTO;
 import com.restaurant.model.eo.Clients;
 import com.restaurant.model.eo.Orders;
 import com.restaurant.model.eo.Users;

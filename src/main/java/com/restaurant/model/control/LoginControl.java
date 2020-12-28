@@ -38,7 +38,7 @@ public class LoginControl {
 	@Autowired
 	private SessionData sessionData;
 
-	@RequestMapping("/")
+	@RequestMapping("/LoginPage")
 	public String viewHomePage(Model model) {
 //		System.out.println("TEST .............. ");
 		Users userDTO = new Users();
@@ -46,7 +46,7 @@ public class LoginControl {
 		return "Login";
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	@RequestMapping(value = "/LoginPage/CheckLoggedUser", method = RequestMethod.POST)
 	public String findUser(@ModelAttribute("user") Users user) {
 
 		Users us = userServ.findByUsernameAndPassword(user.getUserName(), user.getPassword());
@@ -56,8 +56,7 @@ public class LoginControl {
 			sessionData.setLoggedUser(us);
 			return "redirect:/HomePage";
 		} else {
-			System.err.println("--------------Not Found-----------------");
-			return "redirect:/";
+			return "redirect:/LoginPage";
 		}
 	}
 	

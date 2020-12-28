@@ -1,5 +1,6 @@
 package com.restaurant.model.services;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,6 +20,7 @@ import com.restaurant.model.repository.FoodMenuRepository;
 import com.restaurant.model.repository.FoodPriceRepository;
 import com.restaurant.model.repository.OrderItemsRepository;
 import com.restaurant.model.repository.OrdersRepository;
+import com.restaurant.utils.JavaUtils;
 
 @Service
 @Transactional
@@ -47,9 +49,7 @@ public class OrdersService {
 
 	public Orders getDeliverOrderAllData(Long id) {
 		Orders order = repo.getDeliveryOrders(id);
-		System.out.println(id + "______");
 		if (order != null && order.getClientId() != null) {
-			System.out.println(order.getClientId() + "______");
 			order.setClients(clientRepo.getOne(order.getClientId()));
 		}
 		return order;
@@ -57,26 +57,26 @@ public class OrdersService {
 
 	public Orders getAllData(Long id) {
 		Orders order = repo.getOne(id);
-		
+
 		order.setClients(clientRepo.getOne(order.getClientId()));
-		
+
 		return order;
 	}
-	public Long getAllAmount( ) {
-		System.out.println("test------------------");
+
+	public Long getAllAmount() {
 		Long totalAmount = 0L;
-	
+
 		try {
-		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
-		    String strDate= formatter.format(new Date());  
-		    Date date;
-			date = formatter.parse(strDate);
-			totalAmount = repo.getTotalAmount(date);
+			
+			Date today = JavaUtils.getToday();
+			Date yesterday = JavaUtils.getYesterday();
+			System.err.println(today + " --- "+ yesterday);
+			totalAmount = repo.getTotalAmount(yesterday , today);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return totalAmount;
 	}
 

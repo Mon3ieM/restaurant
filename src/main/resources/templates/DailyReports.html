@@ -48,13 +48,15 @@
 					<table id="myTable" class="table table-hover" dir="rtl">
 						<thead>
 							<tr>
-								<th scope="col">التاريخ</th>
+								<th scope="col">من تاريخ</th>
+								<th scope="col">الى تاريخ</th>
 								<th scope="col">اجمالي المبلغ اليومي</th>
 							
 							</tr>
 						</thead>
 						<tbody>
 							<tr >
+								<td th:text="${reportResult.From}"></td>
 								<td th:text="${reportResult.To}"></td>
 								<td th:text="${reportResult.totalAmount}"></td>
 							</tr>

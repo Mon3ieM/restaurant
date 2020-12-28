@@ -1,6 +1,6 @@
 package com.restaurant.model.control;
 
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,33 +9,34 @@ import java.util.Map;
 
 import javax.print.PrintException;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonParser;
+
 import com.google.gson.Gson;
 import com.lowagie.text.DocumentException;
 import com.reports.PDFExporter;
-import com.reports.report;
+
 import com.restaurant.model.dto.CheuqeDTO;
 import com.restaurant.model.dto.FoodCategoryWithMenuDTO;
 import com.restaurant.model.dto.FoodItemDataDTO;
 import com.restaurant.model.eo.Clients;
-import com.restaurant.model.eo.FoodCategory;
+
 import com.restaurant.model.eo.FoodMenu;
 import com.restaurant.model.eo.FoodPrices;
 import com.restaurant.model.eo.OrderItems;
 import com.restaurant.model.eo.Orders;
-import com.restaurant.model.eo.Users;
+
 import com.restaurant.model.services.FoodCategoryService;
 import com.restaurant.model.services.FoodMenuService;
 import com.restaurant.model.services.OrdersService;
@@ -59,6 +60,7 @@ public class OrdersControl {
 	@Autowired
 	private FoodMenuService foodMenuService;
 
+	public ModelAndView mv = new ModelAndView("OrderPage");
 	public Map<Long, List<FoodMenu>> menuData = new HashMap<>();
 	public List<FoodCategoryWithMenuDTO> foodCategoryList = new ArrayList<>();
 	public List<FoodMenu> foodMenuList = new ArrayList<>();
@@ -70,24 +72,26 @@ public class OrdersControl {
 
 	public List<FoodItemDataDTO> foodItemOrderList = new ArrayList<>();
 
-	private void preparData(List<FoodCategoryWithMenuDTO> foodCategoryList) {
-		for (FoodCategoryWithMenuDTO d : foodCategoryList) {
-			menuData.put(d.getId(), d.getFoodMenuList());
+	private void preparData() {
+		if (foodCategoryList.isEmpty()) {
+			foodCategoryList = foodCategoryService.listAllCategoryWithMenu();
+			for (FoodCategoryWithMenuDTO d : foodCategoryList) {
+				menuData.put(d.getId(), d.getFoodMenuList());
+			}
 		}
+
 	}
 
 	@RequestMapping("/enterOrder")
 	public ModelAndView enterOrder() {
 		clearData();
-		foodCategoryList = foodCategoryService.listAllCategoryWithMenu();
-		preparData(foodCategoryList);
+		preparData();
 		Clients c = sessionData.getClientInOrder();
 		if (c != null) {
 			clientInOrder = c;
 			sessionData.setClientInOrder(null);
 		}
 
-		ModelAndView mv = new ModelAndView("OrderPage");
 		mv.addObject("listCategory", foodCategoryList);
 		mv.addObject("foodMenuList", foodMenuList);
 		mv.addObject("newOrderItem", orderItemData);
@@ -100,24 +104,15 @@ public class OrdersControl {
 
 	@RequestMapping("/showOrder")
 	public ModelAndView viewOrderPage() {
-		if (foodCategoryList.isEmpty()) {
-			foodCategoryList = foodCategoryService.listAllCategoryWithMenu();
-			preparData(foodCategoryList);
-		}
-		ModelAndView mv = new ModelAndView("OrderPage");
-		mv.addObject("listCategory", foodCategoryList);
-		mv.addObject("foodMenuList", foodMenuList);
-		mv.addObject("newOrderItem", orderItemData);
-		mv.addObject("totalPrice", totalPrice);
+
 		mv.addObject("msg", msg);
-		mv.addObject("clientData", clientInOrder);
-		mv.addObject("foodItemOrderList", foodItemOrderList);
 		return mv;
 	}
 
 	@RequestMapping("/getMenuByCategoryId/{catId}")
 	public String showFoodMenuPerCategory(@PathVariable(name = "catId") long catId) {
 		foodMenuList = menuData.get(catId);
+		mv.addObject("foodMenuList", foodMenuList);
 		return "redirect:/showOrder";
 	}
 
@@ -131,7 +126,8 @@ public class OrdersControl {
 				break;
 			}
 		}
-
+		mv.addObject("totalPrice", totalPrice);
+		mv.addObject("foodItemOrderList", foodItemOrderList);
 		return "redirect:/showOrder";
 	}
 
@@ -159,6 +155,8 @@ public class OrdersControl {
 			foodItemOrderList.add(fitemDTO);
 			msg = success_Mssg;
 		}
+		mv.addObject("totalPrice", totalPrice);
+		mv.addObject("foodItemOrderList", foodItemOrderList);
 		return "redirect:/showOrder";
 
 	}
@@ -170,8 +168,6 @@ public class OrdersControl {
 			return "M";
 		else if (id == 3)
 			return "L";
-		else if (id == 4)
-			return "Family";
 
 		return "";
 	}
@@ -189,27 +185,26 @@ public class OrdersControl {
 				eo.setOrder(order);
 				detailItems.add(eo);
 			}
-			
-		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
-		    String strDate= formatter.format(new Date());  
-		    Date date = formatter.parse(strDate);
-			order.setCreationDate(date);
-			
-			
-			
-			
+
+			order.setCreationDate(new Date());
+
 			order.setOrderItemsList(detailItems);
 			if (sessionData.getLoggedUser() != null)
 				order.setUserId(sessionData.getLoggedUser().getId());
 			if (clientInOrder != null && clientInOrder.getId() != null)
 				order.setClientId(clientInOrder.getId());
 			order.setTotalPrice(totalPrice);
+			
+			if(detailItems.isEmpty() || totalPrice.equals(0L))
+				throw new Exception("WRONG ORDER");
+			
 			serv.createNewOrder(order);
 			preparCheuqeAndPrint(order);
-			clearData();
+			
+			return "redirect:/enterOrder";
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			msg = "تعذر الطباعة";
+			msg = "تعذر أتمام الطلب ";
 		}
 		return "redirect:/showOrder";
 	}
@@ -236,6 +231,7 @@ public class OrdersControl {
 		totalPrice = 0L;
 		foodItemOrderList = new ArrayList<>();
 		clientInOrder = new Clients();
+		msg = "";
 	}
 
 }

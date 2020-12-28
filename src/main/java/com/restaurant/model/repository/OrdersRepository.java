@@ -16,8 +16,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
 	@Query("select o from Orders o where o.id = :orderId and  o.clientId is not null")
 	 public Orders getDeliveryOrders(@Param("orderId") Long orderId);
 	
-	@Query("select sum(o.totalPrice) from Orders o where o.creationDate = :cdate")
-	 public long getTotalAmount(@Param("cdate") Date cdate);
+	@Query("select sum(o.totalPrice) from Orders o where o.creationDate between :cdate AND :cdateEnd")
+	 public Long getTotalAmount(@Param("cdate") Date cdate , @Param("cdateEnd") Date cdateEnd);
 
 
 }

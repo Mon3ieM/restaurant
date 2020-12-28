@@ -24,7 +24,7 @@ public class HomeControl {
 	
 	@RequestMapping("/HomePage")
 	public ModelAndView viewHomePage(Model model) {
-		ModelAndView mv = new ModelAndView("homePage");
+		ModelAndView mv = new ModelAndView("home");
 		mv.addObject("sessionData", sessionData);
 		
 		return mv;
