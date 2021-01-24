@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.restaurant.model.dto.ReportDTO;
+import com.restaurant.model.eo.Orders;
 import com.restaurant.model.eo.Users;
-import com.restaurant.model.services.FoodCategoryService;
 import com.restaurant.model.services.OrdersService;
+import com.restaurant.model.services.UsersService;
 import com.restaurant.utils.JavaUtils;
 
 @Controller
@@ -27,30 +28,20 @@ public class ReportControl {
 	static List<ReportDTO> reptype = null;
 	static List<Users> user = null;
 	static List<Users> results = new ArrayList<Users>();
+	public List<Users> delivery = new ArrayList<Users>();
+	public List<Users> Casher = new ArrayList<Users>();
+	public List<Orders> OrdersDelivery = new ArrayList<Orders>();
+	public List<Orders> OrdersCasher = new ArrayList<Orders>();
 
+	Long totalPerCasherOrders = 0L;
+	Long totalPerDeliveryOrders = 0L;
+
+	@Autowired
+	private UsersService userserv;
 	@Autowired
 	private OrdersService oServece;
 
-	static {
-		user = new ArrayList<>();
-		reptype = new ArrayList<>();
-		Users u = new Users();
-		u.setFullName("Mostafa");
-		u.setId(1L);
-		u.setIsActive(1L);
-		u.setPassword("123");
-		u.setUserName("Mostafa");
-		u.setRoleId(1L);
-		user.add(u);
-		Users u1 = new Users();
-		u1.setFullName("Mahmoud");
-		u1.setId(2L);
-		u1.setIsActive(1L);
-		u1.setPassword("123");
-		u1.setUserName("Mahmoud");
-		u1.setRoleId(2L);
-		user.add(u1);
-	}
+	
 
 	@RequestMapping("/showReportType")
 	public ModelAndView ReportType() {
@@ -76,27 +67,22 @@ public class ReportControl {
 
 	@GetMapping("/showDelivery")
 	public ModelAndView showDelivery() {
-		List<Users> deliveryUsers = new ArrayList<>();
-		for (Users users : user) {
-			if (users.getRoleId() == 1)
-				deliveryUsers.add(users);
-		}
+		delivery = userserv.findByRoleId(3L);
+
 		ModelAndView mv = new ModelAndView("ReportsDelivery");
-		mv.addObject("delivery", deliveryUsers);
-		mv.addObject("reportResult", results);
+		mv.addObject("delivery", delivery);
+		mv.addObject("total", totalPerDeliveryOrders);
+		mv.addObject("reportResult", OrdersDelivery);
 		return mv;
 	}
 
 	@GetMapping("/showCasher")
 	public ModelAndView showCasher() {
-		List<Users> casherUsers = new ArrayList<>();
-		for (Users users : user) {
-			if (users.getRoleId() == 1)
-				casherUsers.add(users);
-		}
+		Casher = userserv.findByRoleId(1L);
 		ModelAndView mv = new ModelAndView("ReportsCasher");
-		mv.addObject("casher", casherUsers);
-		mv.addObject("reportResult", results);
+		mv.addObject("casher", Casher);
+		mv.addObject("total", totalPerCasherOrders);
+		mv.addObject("reportResult", OrdersCasher);
 		return mv;
 	}
 
@@ -125,36 +111,30 @@ public class ReportControl {
 	}
 
 	@PostMapping(value = "/searchReportDelivery")
-	public String findReportDelivery(@ModelAttribute("report") ReportDTO rep) {
+	public String findReportDelivery(@ModelAttribute("report") ReportDTO rep) throws ParseException {
 		System.err.print(rep.getDeliveryName() + "!!!!!!!!!!!!!!!");
-		if (rep.getDeliveryName().equals("Mostafa")) {
-			System.err.print(rep.getDeliveryName() + "!!!!!!!!!!!!!!!");
-			Users u1 = new Users();
-			u1.setFullName("Mahmoud");
-			u1.setId(2L);
-			u1.setIsActive(1L);
-			u1.setPassword("123");
-			u1.setUserName("Mahmoud");
-			u1.setRoleId(2L);
-			results.add(u1);
+		System.err.print(rep.getFrom() + "!!!!!!!!!!!!!!!");
+		System.err.print(rep.getTo() + "!!!!!!!!!!!!!!!");
+		if (rep.getDeliveryName() !=null && rep.getFrom() !=null &&rep.getTo() != null) {
+			OrdersDelivery=oServece.getOrdersFromToByDeliveryID(rep.getFrom(), rep.getTo(), rep.getDeliveryName());	
+			for (Orders or : OrdersDelivery) {
+				totalPerDeliveryOrders+=or.getTotalPrice();
+			}
 		}
 		return "redirect:/showDelivery";
 
 	}
 
 	@PostMapping(value = "/searchReportCasher")
-	public String findReportCasher(@ModelAttribute("report") ReportDTO rep) {
-		System.err.print(rep.getCasherName() + "!!!!!!!!!!!!!!!");
-		if (rep.getCasherName().equals("Mostafa")) {
-			System.err.print(rep.getCasherName() + "!!!!!!!!!!!!!!!");
-			Users u1 = new Users();
-			u1.setFullName("Mahmoud");
-			u1.setId(2L);
-			u1.setIsActive(1L);
-			u1.setPassword("123");
-			u1.setUserName("Mahmoud");
-			u1.setRoleId(2L);
-			results.add(u1);
+	public String findReportCasher(@ModelAttribute("report") ReportDTO rep) throws ParseException {
+		System.err.print(rep.getCasherName()+ "!!!!!!!!!!!!!!!");
+		System.err.print(rep.getFrom() + "!!!!!!!!!!!!!!!");
+		System.err.print(rep.getTo() + "!!!!!!!!!!!!!!!");
+		if (rep.getCasherName() !=null && rep.getFrom() !=null &&rep.getTo() != null) {
+			OrdersCasher=oServece.getOrdersFromToByCasherID(rep.getFrom(), rep.getTo(), rep.getCasherName());	
+			for (Orders or : OrdersCasher) {
+				totalPerCasherOrders+=or.getTotalPrice();
+			}
 		}
 		return "redirect:/showCasher";
 

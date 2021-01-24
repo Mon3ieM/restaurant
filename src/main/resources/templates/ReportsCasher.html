@@ -1,4 +1,4 @@
-Reports.html<html dir="rtl" xmlns="http://www.w3.org/1999/xhtml"
+<html dir="rtl" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>تقارير شلتوت</title>
@@ -50,7 +50,7 @@ Reports.html<html dir="rtl" xmlns="http://www.w3.org/1999/xhtml"
 								<select class="custom-select" name="casherName"
 									style="float: right;" dir="rtl">
 									<option th:each="casherName:${casher}"
-										th:text="${casherName.fullName}" />
+									th:value="${casherName.id}"	th:text="${casherName.fullName}" />
 								</select>
 							</div>
 						</div>
@@ -78,25 +78,25 @@ Reports.html<html dir="rtl" xmlns="http://www.w3.org/1999/xhtml"
 			</div>
 			<div class="card" dir="rtl">
 				<div class="card-body">
-					<h5 class="card-title" style="text-align: right">نتيجه البحث :</h5>
+					<h5 class="card-title" style="text-align: right">نتيجه اجمالي البحث : </h5>
+										<h5 class="card-title" style="text-align: right" th:text="${total}"> </h5>
+					
 
 					<table id="myTable" class="table table-hover" dir="rtl">
 						<thead>
 							<tr>
-								<th scope="col">التسلسل</th>
-								<th scope="col">اسم</th>
-								<th scope="col">كلمه السر</th>
-								<th scope="col">الوظيفه</th>
-								<th scope="col">اسم المستخدم</th>
+								<th scope="col">رقم الاوردر</th>
+								<th scope="col">سعر الاوردر</th>
+								<th scope="col">تاريخ الاوردر</th>
+								
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="c :${reportResult}">
-								<td th:text="${c.id}">id</td>
-								<td th:text="${c.fullName}">name</td>
-								<td th:text="${c.password}">password</td>
-								<td th:text="${c.roleId}">roleId</td>
-								<td th:text="${c.userName}">userName</td>
+								<td th:text="${c.id}"></td>
+								<td th:text="${c.totalPrice}"></td>
+								<td th:text="${c.creationDate}"></td>
+								
 							</tr>
 						</tbody>
 					</table>

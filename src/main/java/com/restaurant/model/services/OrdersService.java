@@ -1,10 +1,13 @@
 package com.restaurant.model.services;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.border.AbstractBorder;
 import javax.transaction.Transactional;
@@ -61,6 +64,34 @@ public class OrdersService {
 		order.setClients(clientRepo.getOne(order.getClientId()));
 
 		return order;
+	}
+	
+	public List<Orders> getOrdersFromToByDeliveryID(String from,String to,String deliveryId) throws ParseException {
+		List<Orders> orderss=new ArrayList<Orders>();
+	    
+	    DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+	    Date FromDate = format.parse(from+ " 03:00:00");
+	    Date ToDate = format.parse(to+ " 03:00:00");
+
+		System.err.print("--------------------"+FromDate + "--------------------");
+		orderss = repo.getOrderFromToDateByDeliveryID(FromDate, ToDate, Long.parseLong(deliveryId));
+		System.err.print("--------------------"+orderss.size() + "--------------------");
+
+		return orderss;
+	}
+	
+	public List<Orders> getOrdersFromToByCasherID(String from,String to,String casherId) throws ParseException {
+		List<Orders> orderss=new ArrayList<Orders>();
+	    
+	    DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+	    Date FromDate = format.parse(from+ " 03:00:00");
+	    Date ToDate = format.parse(to+ " 03:00:00");
+
+		System.err.print("--------------------"+FromDate + "--------------------");
+		orderss = repo.getOrderFromToDateByCasherID(FromDate, ToDate, Long.parseLong(casherId));
+		System.err.print("--------------------"+orderss.size() + "--------------------");
+
+		return orderss;
 	}
 
 	public Long getAllAmount() {
