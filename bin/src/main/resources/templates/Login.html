@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>امانة جدة</title>
+<title>تسجيل دخول</title>
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css"
 	type="text/css" />
 <link href="/resources/css/styles.css" rel="stylesheet" type="text/css">
@@ -23,7 +23,7 @@
 					<p>دوق واحكم بنفسك</p>
 				</div>
 
-				<form action="#" th:action="@{/save}" th:object="${user}"
+				<form action="#" th:action="@{/LoginPage/CheckLoggedUser}" th:object="${user}"
             method="post">
 
 					<div class="input-group mb-3" style="margin-top: 30px;">

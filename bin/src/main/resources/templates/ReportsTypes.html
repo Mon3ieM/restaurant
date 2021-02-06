@@ -19,7 +19,7 @@
 			<img src="resources/images/Rectangle1.png" />
 		</div>
 		<div id="logo">
-			<img src="resources/images/logo.png" />
+		<a th:href="@{'/HomePage'}"> <img src="resources/images/logo.png" /></a>
 		</div>
 		<div id="systemnamebg_0">
 			<p class="systemTitle">دوق واحكم بنفسك</p>
@@ -28,37 +28,24 @@
 	</nav>
 	<div id="centerblock">
 		<div class="container-fluid">
-		<form action="#" th:action="@{/ClientsHomePage}" method="post">
+	
 			<div class="row">		
 				<div class="card chartBlock">
-					<input type="image" src="resources/images/TakeAway.jpg" href="@{'/ClientsHomePage/' + ${1}}"
-						alt="Submit">
-					<p class="label2">تيك اواي</p>
+					<img src="resources/images/TakeAway.jpg">
+					<a th:href="@{'/ReportPageFilter/' + ${1}}"><h3 class="label2">الديليفري</h3></a>
 				</div>
 				<div class="card chartBlock">
-					<input type="image" src="resources/images/delivery.jpg"
-						alt="Submit">
-					<p class="label2">ديليفري</p>
+					<img src="resources/images/TakeAway.jpg">
+					<a th:href="@{'/ReportPageFilter/' + ${2}}"><h3 class="label2">الكاشير</h3></a>
 				</div>
 				<div class="card chartBlock">
-					<input type="image" src="resources/images/report.jpg" alt="Submit">
-					<p class="label2">الجرد والتقارير</p>
+					<img src="resources/images/TakeAway.jpg">
+					<a th:href="@{'/ReportPageFilter/' + ${3}}"><h3 class="label2">شامل</h3></a>
 				</div>
-				<div class="card chartBlock">
-					<input type="image" src="resources/images/store.jpg" alt="Submit">
-					<p class="label2">منظومه المخزن</p>
+					<div class="card chartBlock">
+					<img src="resources/images/TakeAway.jpg">
+					<a th:href="@{'/ReportPageFilter/' + ${4}}"><h3 class="label2">تقرير يومي</h3></a>
 				</div>
 			</div>
-			</form>
-			<div class="row">
-
-
-				<div class="card chartBlock">
-					<input type="image" src="resources/images/hole.jpg" alt="Submit">
-					<p class="label2">الصاله</p>
-				</div>
-
-			</div>
-		</div>
 </body>
 </html>

@@ -1,0 +1,70 @@
+<html dir="rtl" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>شلتوت</title>
+<link rel="stylesheet" href="resources\css\bootstrap.min.css"
+	type="text/css" />
+<link href="resources\css\styles.css" rel="stylesheet" type="text/css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body class="indexBody">
+	<!-- header -->
+	<nav class="mainHeader">
+		<div class="leftblock">
+				<p class="label1" style="color: white;">اسم المستخدم</p>
+				<p  style="color: white;" th:value="${sessionData.loggedUser.userName}" th:field="${sessionData.loggedUser.userName}" th:text="${sessionData.loggedUser.userName}"></p>			
+		</div>
+		<div id="logoBG">
+			<img src="resources/images/Rectangle1.png" />
+		</div>
+		<div id="logo">
+			<a th:href="@{'/HomePage'}"> <img src="resources/images/logo.png" /></a>
+		</div>
+		<div id="systemnamebg_0">
+			<p class="systemTitle">دوق واحكم بنفسك</p>
+		</div>
+
+	</nav>
+	<div id="centerblock">
+		<div class="container-fluid">
+	
+			<div class="row">		
+				<div class="card chartBlock">
+					<img src="resources/images/TakeAway.jpg">
+					<a th:href="@{'/homePageFilter/' + ${1}}"><h3 class="label2">تيك اواي</h3></a>
+				</div>
+				<div class="card chartBlock">
+					<input type="image" src="resources/images/delivery.jpg"
+						alt="Submit">
+					<a th:href="@{'/homePageFilter/' + ${2}}"><h3 class="label2">ديليفري</h3></a>
+				</div>
+				
+				
+				<div class="card chartBlock">
+				<img src="resources/images/delivery.jpg">
+					<a th:href="@{'/homePageFilter/' + ${4}}"><h3 class="label2">تعيين طيار</h3></a>
+				</div>
+				<div class="card chartBlock">
+					<img src="resources/images/report.jpg">
+					<a th:href="@{'/homePageFilter/' + ${3}}"><h3 class="label2">الجرد والتقارير</h3></a>
+				</div>
+			</div>
+			
+			<div class="row">
+
+
+				<div class="card chartBlock">
+					<input type="image" src="resources/images/hole.jpg" alt="Submit">
+					<h3 class="label2">الصاله</h3>
+				</div>
+				<div class="card chartBlock">
+					<input type="image" src="resources/images/store.jpg" alt="Submit">
+					<h3 class="label2">منظومه المخزن</h3>
+				</div>
+				
+
+			</div>
+		</div>
+</body>
+</html>

@@ -1,36 +1,29 @@
 <html dir="rtl" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>امانة جدة</title>
+<title>طلب اوردر شلتوت</title>
 <link rel="stylesheet" href="resources\css\bootstrap.min.css"
 	type="text/css" />
 <link href="resources\css\styles.css" rel="stylesheet" type="text/css">
 <script src="resources\js\jQuery.js"></script>
 <script src="resources\js\jQuery-table.js"></script>
 <script src="resources\js\scripts.js"></script>
-<script src="https:/kit.fontawesome.com/868b4e0b54.js"
-	crossorigin="anonymous"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script type="text/javascript">
+
+
+
+
+<script>
 	$(document).ready(function() {
-		var table = $('#myTable').DataTable();
+		$('.btnfood').click(function() {
+			var foodmenuId = $(this).attr("id");
+			var foodmenuName = $(this).attr("value");
+			$("#foodName").val(foodmenuName);
+			$("#foodMenuId").val(foodmenuId);
+			$("#qty").val(1);
 
-		$('#example tbody').on('click', 'tr', function() {
-			if ($(this).hasClass('selected')) {
-				$(this).removeClass('selected');
-			} else {
-				table.$('tr.selected').removeClass('selected');
-				$(this).addClass('selected');
-			}
-		});
-
-		$('#button').click(function() {
-			table.row('.selected').remove().draw(false);
 		});
 	});
 </script>
-
 </head>
 <body class="indexBody">
 
@@ -39,14 +32,13 @@
 
 	<nav class="mainHeader">
 
-
 		<div id="logoBG">
 			<img src="resources/images/Rectangle1.png" />
 		</div>
 		<div id="logo">
-			<img src="resources/images/logo.png" />
+			<a th:href="@{'/HomePage'}"> <img src="resources/images/logo.png" /></a>
 		</div>
-		<div id="systemnamebg_0">
+		<div>
 			<p class="systemTitle">دوق واحكم بنفسك</p>
 		</div>
 
@@ -55,25 +47,134 @@
 
 	<!-- center block -->
 
+
 	<div id="centerblock">
+
 		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-5"></div>
-				<th:block th:each="fMenu : ${foodMenuList}">
-					<a th:text="${fMenu.name}"/>
 
-				</th:block>
-				<div class="col-md-10">
-					<th:block th:each="category : ${listCategory}">
-						<a th:text="${category.name}"
-							th:href="@{'/getMenuByCategoryId/' + ${category.id}}" />
+			<div class="row" dir="rtl" id="fieldsForm">
+				<div class="col-md-6 lineDiv">
+					<div class="row" style="border-bottom: double;" dir="rtl">
+						<th:block th:each="category : ${listCategory}">
+							<button class="btn"
+								style="width: 30%; margin-right: 10px; margin-top: 5px">
+								<a th:href="@{'/getMenuByCategoryId/' + ${category.id}}"
+									th:text="${category.name}"></a>
+							</button>
 
-					</th:block>
+						</th:block>
+					</div>
+					<br>
+
+					<div class="row" dir="rtl" id="fieldsForm">
+
+						<th:block th:each="menuFood : ${foodMenuList}">
+							<button class="btn btnFood btn-primary"
+								style="width: 30%; margin-right: 5px; margin-top: 5px"
+								action="#" th:id="${menuFood.id}" th:value="${menuFood.name}"
+								th:text="${menuFood.name}" />
+
+						</th:block>
+					</div>
+				</div>
+				<div class="col-md-6 lineDiv">
+					<table class="table table-bordered">
+						<tr>
+							<th>اسم العميل</th>
+							<th>عنوان العميل</th>
+						</tr>
+						<tr>
+							<td th:text="${clientData.name}"></td>
+							<td th:text="${clientData.address}"></td>
+
+						</tr>
+					</table>
+					<h5 th:text="${msg}"></h5>
+					<form action="#" th:action="@{/sendNeededDataAndGetPrice}"
+						th:object="${FoodItemDataDTO}" method="post">
+						<input type="text" class="form-control" id="foodName"
+							readonly="readonly" style="margin-top: 10px;" name="foodMenuName">
+						<select class="size-select" id="name2" dir="rtl"
+							style="margin-right: -10px; margin-top: 10px; width: 100%;"
+							name="foodSizeId">
+							<option value="5" selected="selected">غير متاح</option>
+							<option value="1">صغير</option>
+							<option value="2">وسط</option>
+							<option value="3">كبير</option>
+						</select> <input type="number" class="form-control" placeholder="العدد"
+							id="qty" style="margin-top: 10px;" name="qty"> <input
+							type="text" style="margin-top: 10px;" class="form-control"
+							placeholder="تعليق على الطلب" name="comment"> <input
+							type="hidden" id="foodMenuId" name="foodMenuId">
+						<button type="submit" class="btn btn-primary" id="okModal"
+							style="margin-top: 10px; width: 20%">اضافة</button>
+					</form>
 
 
+
+					<div class="table-responsive">
+						<table>
+
+							<tr>
+								<td>
+									<p class="label" style="margin-top: 10px;">السعر الاجمالى</p>
+								</td>
+								<td>
+									<p style="margin-right: 10px; margin-top: 10px;"
+										th:text="${totalPrice}"></p>
+								</td>
+							</tr>
+							<tr>
+							</tr>
+							<tr>
+								<td><button class="btn btn-success">
+										<a style="color: white" th:href="@{'/calculateFinalPrice'}">
+											أنهاء الطلب </a>
+									</button></td>
+							</tr>
+						</table>
+
+
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+
+									<th class="text-center">الاسم</th>
+									<th class="text-center">الحجم</th>
+									<th class="text-center">الكمية</th>
+									<th class="text-center">السعر</th>
+									<th class="text-center"></th>
+								</tr>
+							</thead>
+							<tbody id="tbody">
+								<tr th:each="foodItemOrder :${foodItemOrderList}">
+									<td th:text="${foodItemOrder.foodMenuName}"></td>
+									<td th:text="${foodItemOrder.size}"></td>
+									<td th:text="${foodItemOrder.qty}"></td>
+									<td th:text="${foodItemOrder.price}"></td>
+									<td>
+										<button class="btn btn-danger">
+											<a style="color: white"
+												th:href="@{'/removeFoodItemOrder/' + ${foodItemOrder.id}}">
+												حذف </a>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+
+
+					</div>
 
 				</div>
+
+
 			</div>
+			<div class="row" dir="rtl" id="fieldsForm"></div>
+
+
+
 		</div>
 	</div>
 </body>
