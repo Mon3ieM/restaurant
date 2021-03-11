@@ -1,7 +1,7 @@
 <html dir="rtl" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>امانة جدة</title>
+<title>تقارير شلتوت</title>
 <link rel="stylesheet" href="resources\css\bootstrap.min.css"
 	type="text/css" />
 <link href="resources\css\styles.css" rel="stylesheet" type="text/css">
@@ -12,33 +12,19 @@
 	crossorigin="anonymous"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		var table = $('#myTable').DataTable();
 
-		$('#example tbody').on('click', 'tr', function() {
-			if ($(this).hasClass('selected')) {
-				$(this).removeClass('selected');
-			} else {
-				table.$('tr.selected').removeClass('selected');
-				$(this).addClass('selected');
-			}
-		});
-
-		$('#button').click(function() {
-			table.row('.selected').remove().draw(false);
-		});
-	});
-</script>
 
 </head>
 <body class="indexBody">
 
+<<<<<<< HEAD:src/main/resources/templates/home_page.html
 
 
 
 
 
+=======
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9:bin/src/main/resources/templates/DailyReports.html
 	<!-- header -->
 
 	<nav class="mainHeader">
@@ -48,15 +34,22 @@
 			<img src="resources/images/Rectangle1.png" />
 		</div>
 		<div id="logo">
-			<img src="resources/images/logo.png" />
+		<a th:href="@{'/HomePage'}"> <img src="resources/images/logo.png" /></a>
 		</div>
 		<div id="systemnamebg_0">
 			<p class="systemTitle">دوق واحكم بنفسك</p>
 		</div>
 
 	</nav>
+
+
+
+
+	<!-- center block -->
+
 	<div id="centerblock">
 		<div class="container-fluid">
+<<<<<<< HEAD:src/main/resources/templates/home_page.html
 			<div class="row">
 				<div class="card chartBlock">
 					<div class="card-body">
@@ -70,6 +63,31 @@
 			</div>
 			</row>
 
+=======
+			<div class="card" dir="rtl">
+				<div class="card-body">
+					<h5 class="card-title" style="text-align: right">التقرير اليومي:</h5>
+
+					<table id="myTable" class="table table-hover" dir="rtl">
+						<thead>
+							<tr>
+								<th scope="col">من تاريخ</th>
+								<th scope="col">الى تاريخ</th>
+								<th scope="col">اجمالي المبلغ اليومي</th>
+							
+							</tr>
+						</thead>
+						<tbody>
+							<tr >
+								<td th:text="${reportResult.From}"></td>
+								<td th:text="${reportResult.To}"></td>
+								<td th:text="${reportResult.totalAmount}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9:bin/src/main/resources/templates/DailyReports.html
 		</div>
 	</div>
 </body>

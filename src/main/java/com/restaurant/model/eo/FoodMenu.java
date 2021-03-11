@@ -10,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+<<<<<<< HEAD
 import javax.persistence.OneToOne;
+=======
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -44,12 +47,16 @@ public class FoodMenu {
 	
 	
 	
+<<<<<<< HEAD
 	public FoodCategory getFoodCategoryEO() {
 		return foodCategoryEO;
 	}
 	public void setFoodCategoryEO(FoodCategory foodCategoryEO) {
 		this.foodCategoryEO = foodCategoryEO;
 	}
+=======
+	
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 	public Long getFoodCategoryId() {
 		return foodCategoryId;
 	}

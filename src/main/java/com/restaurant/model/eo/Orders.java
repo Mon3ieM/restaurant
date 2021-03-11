@@ -6,7 +6,10 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+<<<<<<< HEAD
 import javax.persistence.FetchType;
+=======
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +45,11 @@ public class Orders {
 	@Column(name = "DELIVERY_ID")
 	private Long deliveryId;
 
+<<<<<<< HEAD
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+=======
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 	List<OrderItems> orderItemsList;
 	@Column(name = "TOTAL_PRICE")
 	private Long totalPrice;

@@ -1,11 +1,17 @@
 package com.restaurant.utils;
 
+<<<<<<< HEAD
 import java.text.DateFormat;
+=======
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+<<<<<<< HEAD
 import java.util.Locale;
+=======
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 
 public class JavaUtils {
 
@@ -35,6 +41,7 @@ public class JavaUtils {
 	    return formatter.parse(toDate + " 03:00:00");
 	}
 	
+<<<<<<< HEAD
 	public static String getTomorrowAsString() {
 	    final Calendar cal = Calendar.getInstance();
 	    cal.add(Calendar.DATE, +1);
@@ -51,6 +58,8 @@ public class JavaUtils {
 	    return formatter.parse(yestDate + " 03:00:00");
 	}
 	
+=======
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 	public static String getTodayAsString() {
 	    final Calendar cal = Calendar.getInstance();
 		SimpleDateFormat formatter_2 = new SimpleDateFormat("yyyy-MM-dd");
@@ -58,11 +67,15 @@ public class JavaUtils {
 	    return toDate + " 03:00:00";
 	}
 	
+<<<<<<< HEAD
 	public static Date getDateFromString(String dateStr) throws ParseException {
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 		Date date = format.parse(dateStr + " 00:00:00");
 	    return date;
 	}
+=======
+
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 	
 	public static String getCurrentDateAsString() {
 	    final Calendar cal = Calendar.getInstance();

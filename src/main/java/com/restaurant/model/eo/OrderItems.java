@@ -35,6 +35,7 @@ public class OrderItems {
 
 	@Column(name = "FOOD_PRICE_ID")
     private Long foodPriceId;
+<<<<<<< HEAD
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FOOD_PRICE_ID" , insertable = false , updatable = false)
@@ -47,6 +48,9 @@ public class OrderItems {
 		this.foodPriceEO = foodPriceEO;
 	}
 	@Id
+=======
+    @Id
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OrderItems_Seq_Gen")
     private Long id;

@@ -1,7 +1,10 @@
 package com.restaurant.model.services;
 
+<<<<<<< HEAD
 import java.math.BigDecimal;
 import java.math.BigInteger;
+=======
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -17,7 +20,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import com.restaurant.model.dto.ReportMenuDataQtyDTO;
+=======
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 import com.restaurant.model.eo.FoodMenu;
 import com.restaurant.model.eo.FoodPrices;
 import com.restaurant.model.eo.Orders;
@@ -53,6 +59,7 @@ public class OrdersService {
 		repo.save(eo);
 	}
 
+<<<<<<< HEAD
 	public List<ReportMenuDataQtyDTO> getMenuQtyReportDate(Date date_From, Date date_To) {
 
 		List<ReportMenuDataQtyDTO> res = new ArrayList<ReportMenuDataQtyDTO>();
@@ -74,6 +81,8 @@ public class OrdersService {
 		return res;
 	}
 
+=======
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 	public Orders getDeliverOrderAllData(Long id) {
 		Orders order = repo.getDeliveryOrders(id);
 		if (order != null && order.getClientId() != null) {
@@ -89,6 +98,7 @@ public class OrdersService {
 
 		return order;
 	}
+<<<<<<< HEAD
 
 	public List<Orders> getOrdersFromToByDeliveryID(String from, String to, String deliveryId) throws ParseException {
 		List<Orders> orderss = new ArrayList<Orders>();
@@ -128,6 +138,33 @@ public class OrdersService {
 		System.err.print("--------------------" + FromDate + "--------------------");
 		orderss = repo.getOrderFromToDate(FromDate, ToDate);
 		System.err.print("--------------------" + orderss.size() + "--------------------");
+=======
+	
+	public List<Orders> getOrdersFromToByDeliveryID(String from,String to,String deliveryId) throws ParseException {
+		List<Orders> orderss=new ArrayList<Orders>();
+	    
+	    DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+	    Date FromDate = format.parse(from+ " 03:00:00");
+	    Date ToDate = format.parse(to+ " 03:00:00");
+
+		System.err.print("--------------------"+FromDate + "--------------------");
+		orderss = repo.getOrderFromToDateByDeliveryID(FromDate, ToDate, Long.parseLong(deliveryId));
+		System.err.print("--------------------"+orderss.size() + "--------------------");
+
+		return orderss;
+	}
+	
+	public List<Orders> getOrdersFromToByCasherID(String from,String to,String casherId) throws ParseException {
+		List<Orders> orderss=new ArrayList<Orders>();
+	    
+	    DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+	    Date FromDate = format.parse(from+ " 03:00:00");
+	    Date ToDate = format.parse(to+ " 03:00:00");
+
+		System.err.print("--------------------"+FromDate + "--------------------");
+		orderss = repo.getOrderFromToDateByCasherID(FromDate, ToDate, Long.parseLong(casherId));
+		System.err.print("--------------------"+orderss.size() + "--------------------");
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 
 		return orderss;
 	}
@@ -136,11 +173,19 @@ public class OrdersService {
 		Long totalAmount = 0L;
 
 		try {
+<<<<<<< HEAD
 
 			Date today = JavaUtils.getToday();
 			Date tomorrow = JavaUtils.getTomorrow();
 			System.err.println(today + " --- " + tomorrow);
 			totalAmount = repo.getTotalAmount(today, tomorrow);
+=======
+			
+			Date today = JavaUtils.getToday();
+			Date yesterday = JavaUtils.getYesterday();
+			System.err.println(today + " --- "+ yesterday);
+			totalAmount = repo.getTotalAmount(yesterday , today);
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -162,10 +207,19 @@ public class OrdersService {
 	public void delete(Long id) {
 		repo.deleteById(id);
 
+<<<<<<< HEAD
 	}
 
 	public void update(Orders eo) {
 		repo.save(eo);
 	}
 
+=======
+	}
+
+	public void update(Orders eo) {
+		repo.save(eo);
+	}
+
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 }

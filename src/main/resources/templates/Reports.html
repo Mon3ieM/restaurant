@@ -36,7 +36,11 @@
 
 
 
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 
 	<!-- header -->
 
@@ -47,7 +51,11 @@
 			<img src="resources/images/Rectangle1.png" />
 		</div>
 		<div id="logo">
+<<<<<<< HEAD
 			<a th:href="@{'/HomePage'}"> <img src="resources/images/logo.png" /></a>
+=======
+	<a th:href="@{'/HomePage'}"> <img src="resources/images/logo.png" /></a>
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 		</div>
 		<div id="systemnamebg_0">
 			<p class="systemTitle">دوق واحكم بنفسك</p>
@@ -84,6 +92,7 @@
 	<div id="centerblock">
 		<div class="container-fluid">
 			<div class="card" dir="rtl">
+<<<<<<< HEAD
 				<form th:action="@{/SearchGenerl}" th:object="${report}"
 					method="post">
 					<div class="row " dir="rtl" id="fieldsForm">
@@ -113,10 +122,69 @@
 					<h5 class="card-title" style="text-align: right">نتيجه اجمالي البحث : </h5>
 										<h5 class="card-title" style="text-align: right" th:text="${total}"> </h5>
 					
+=======
+				<form th:action="@{/searchReport}" th:object="${reportForm}"method="post">
+					<div class="card-body">
+						<div class="row " dir="rtl" id="fieldsForm">
+							<div class="col-md-12">
+								<p style="float: right; margin-top: 5px; margin-right: 12px">نوع
+									التقرير</p>
+								<select class="custom-select" name="reportType"
+									style="float: right;" dir="rtl">
+									<option th:each="reportType:${reports}"
+										th:text="${reportType.name}" />
+								</select>
+							</div>
+						</div>
+						<div class="row " dir="rtl" id="fieldsForm">
+							<div class="col-md-12">
+								<p style="float: right; margin-top: 5px;">اسم الكاشير</p>
+								<select class="custom-select" name="casherName"
+									style="float: right;" dir="rtl">
+									<option th:each="casherName:${casher}"
+										th:text="${casherName.fullName}" />
+								</select>
+
+								<p style="float: right; margin-top: 5px; margin-right: 5px;">اسم
+									الديليفري</p>
+								<select class="custom-select" name="deliveryName"
+									style="float: right;" dir="rtl">
+									<option th:each="deliveryName:${delivery}"
+										th:text="${deliveryName.fullName}" />
+								</select>
+							</div>
+						</div>
+						<div class="row " dir="rtl" id="fieldsForm">
+							<div class="col-md-12">
+
+								<p style="float: right; margin-top: 5px;">من تاريخ</p>
+								<input type="date" name="from" class="form-control"
+									style="margin-top: 10px; width: 22%">
+								<p style="float: right; margin-top: 5px; margin-right: 5px;">الي
+									تاريخ</p>
+								<input type="date" name="to" class="form-control"
+									style="margin-top: 10px; width: 22%">
+							</div>
+						</div>
+						<div class="row " dir="rtl" id="fieldsForm">
+							<div class="col-md-12">
+								<button type="submit" class="btn mapsBTN">
+									بحث <i class="fas"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="card" dir="rtl">
+				<div class="card-body">
+					<h5 class="card-title" style="text-align: right">نتيجه البحث :</h5>
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 
 					<table id="myTable" class="table table-hover" dir="rtl">
 						<thead>
 							<tr>
+<<<<<<< HEAD
 								<th scope="col">الصنف</th>
 								<th scope="col">الحجم</th>
 								<th scope="col">الكميه</th>
@@ -133,12 +201,32 @@
 								<td th:text="${order.price}"></td>
 								<td th:text="${order.total}"></td>
 								
+=======
+								<th scope="col">التسلسل</th>
+								<th scope="col">اسم</th>
+								<th scope="col">كلمه السر</th>
+								<th scope="col">الوظيفه</th>
+								<th scope="col">اسم المستخدم</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="c :${reportResult}">
+								<td th:text="${c.id}">id</td>
+								<td th:text="${c.fullName}">name</td>
+								<td th:text="${c.password}">password</td>
+								<td th:text="${c.roleId}">roleId</td>
+								<td th:text="${c.userName}">userName</td>
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
+<<<<<<< HEAD
 	</div>
+=======
+		</div>
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 	</div>
 </body>
 </html>

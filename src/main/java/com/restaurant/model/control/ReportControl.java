@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.restaurant.model.dto.ReportDTO;
+<<<<<<< HEAD
 import com.restaurant.model.dto.ReportMenuDataQtyDTO;
+=======
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 import com.restaurant.model.eo.Orders;
 import com.restaurant.model.eo.Users;
 import com.restaurant.model.services.OrdersService;
@@ -33,10 +36,13 @@ public class ReportControl {
 	public List<Users> Casher = new ArrayList<Users>();
 	public List<Orders> OrdersDelivery = new ArrayList<Orders>();
 	public List<Orders> OrdersCasher = new ArrayList<Orders>();
+<<<<<<< HEAD
 	public List<Orders> Orders = new ArrayList<Orders>();
 	public List<ReportMenuDataQtyDTO> ReportMenuDataQty = new ArrayList<ReportMenuDataQtyDTO>();
 
 
+=======
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 
 	Long totalPerCasherOrders = 0L;
 	Long totalPerDeliveryOrders = 0L;
@@ -97,8 +103,13 @@ public class ReportControl {
 
 		ReportDTO rep = new ReportDTO();
 		Long total = oServece.getAllAmount();
+<<<<<<< HEAD
 		rep.setTo(JavaUtils.getTomorrowAsString());
 		rep.setFrom(JavaUtils.getTodayAsString());
+=======
+		rep.setTo(JavaUtils.getTodayAsString());
+		rep.setFrom(JavaUtils.getYesterdayAsString());
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 		rep.setTotalAmount(total == null ? 0L : total);
 		mv.addObject("reportResult", rep);
 
@@ -107,6 +118,7 @@ public class ReportControl {
 
 	@GetMapping("/showGenerl")
 	public ModelAndView showGenerl() {
+<<<<<<< HEAD
 		ModelAndView mv = new ModelAndView("Reports");
 		mv.addObject("reportResult", ReportMenuDataQty);	
 		return mv;
@@ -117,6 +129,13 @@ public class ReportControl {
 		System.err.print(rep.getTo() + "!!!!!!!!!!!!!!!");
 		
 		ModelAndView mv = new ModelAndView("Reports");
+=======
+		List<Users> generlUsers = new ArrayList<>();
+		generlUsers = user;
+		ModelAndView mv = new ModelAndView("Reports");
+		mv.addObject("delivery", generlUsers);
+		mv.addObject("reportResult", results);
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 		return mv;
 	}
 
@@ -150,6 +169,7 @@ public class ReportControl {
 
 	}
 
+<<<<<<< HEAD
 	@PostMapping(value = "/SearchGenerl")
 	public String SearchGenerl(@ModelAttribute("report") ReportDTO rep) throws ParseException {
 		System.err.print(JavaUtils.getDateFromString(rep.getFrom()) + "!!!!!!!!!!!!!!!");
@@ -161,6 +181,8 @@ public class ReportControl {
 		return "redirect:/showGenerl";
 
 	}
+=======
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 	@PostMapping(value = "/searchReportGenerl")
 	public String findReportGenerl(@ModelAttribute("report") ReportDTO rep) {
 

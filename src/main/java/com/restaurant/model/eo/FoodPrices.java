@@ -1,5 +1,6 @@
 package com.restaurant.model.eo;
 
+<<<<<<< HEAD
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+=======
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -22,10 +30,13 @@ public class FoodPrices {
 	
 	@Column(name = "FOOD_SIZE_ID")
 	private Long foodSizeId;
+<<<<<<< HEAD
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FOOD_SIZE_ID" , insertable = false , updatable = false)
 	private FoodSize foodSizeEO;
+=======
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 
 	@Id
 	@Column(nullable = false)
@@ -35,6 +46,7 @@ public class FoodPrices {
 	@Column(name = "FOOD_Menu_ID")
 	private Long foodMenuId;
 	
+<<<<<<< HEAD
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FOOD_Menu_ID" , insertable = false , updatable = false)
@@ -56,6 +68,8 @@ public class FoodPrices {
 		this.foodMenuEO = foodMenuEO;
 	}
 
+=======
+>>>>>>> 95427e7b70ec812f9d113fa19c90a374f0daabc9
 	private Long price;
 
 	public Long getFoodSizeId() {
