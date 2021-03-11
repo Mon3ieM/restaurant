@@ -1,0 +1,70 @@
+<html dir="rtl" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>تقارير شلتوت</title>
+<link rel="stylesheet" href="resources\css\bootstrap.min.css"
+	type="text/css" />
+<link href="resources\css\styles.css" rel="stylesheet" type="text/css">
+<script src="resources\js\jQuery.js"></script>
+<script src="resources\js\jQuery-table.js"></script>
+<script src="resources\js\scripts.js"></script>
+<script src="https:/kit.fontawesome.com/868b4e0b54.js"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+</head>
+<body class="indexBody">
+
+	<!-- header -->
+
+	<nav class="mainHeader">
+
+
+		<div id="logoBG">
+			<img src="resources/images/Rectangle1.png" />
+		</div>
+		<div id="logo">
+		<a th:href="@{'/HomePage'}"> <img src="resources/images/logo.png" /></a>
+		</div>
+		<div id="systemnamebg_0">
+			<p class="systemTitle">دوق واحكم بنفسك</p>
+		</div>
+
+	</nav>
+
+
+
+
+	<!-- center block -->
+
+	<div id="centerblock">
+		<div class="container-fluid">
+			<div class="card" dir="rtl">
+				<div class="card-body">
+					<h5 class="card-title" style="text-align: right">التقرير اليومي:</h5>
+
+					<table id="myTable" class="table table-hover" dir="rtl">
+						<thead>
+							<tr>
+								<th scope="col">من تاريخ</th>
+								<th scope="col">الى تاريخ</th>
+								<th scope="col">اجمالي المبلغ اليومي</th>
+							
+							</tr>
+						</thead>
+						<tbody>
+							<tr >
+								<td th:text="${reportResult.From}"></td>
+								<td th:text="${reportResult.To}"></td>
+								<td th:text="${reportResult.totalAmount}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

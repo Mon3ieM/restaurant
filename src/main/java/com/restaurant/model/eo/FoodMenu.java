@@ -5,9 +5,13 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -15,25 +19,59 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@SequenceGenerator(name = "FOOD_MENU_Seq_Gen", sequenceName = "FOOD_MENU_SEQ",
+allocationSize = 1, initialValue = 1)
 @Table(name = "FOOD_MENU")
 public class FoodMenu {
 
-	@ManyToOne(targetEntity = FoodCategory.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "FOOD_CATEGORY_ID", referencedColumnName = "ID")
-	private FoodCategory foodCategoryId;
 
-	@Column(name = "FOOD_SIZE_ID")
-	private Long foodSizeId;
+	
+	@Column(name = "FOOD_CATEGORY_ID")
+	private Long foodCategoryId;
+	
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FOOD_CATEGORY_ID" , insertable = false , updatable = false)
+	private FoodCategory foodCategoryEO;
+	
+	
 	@Id
 	@Column(nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FOOD_MENU_Seq_Gen")
 	private Long id;
-	@Column(name = "IS_ACTIVE")
-	private Long isActive;
-	private String name;
-	private Long price;
 
+	private String name;
+	
+	
+	
+	public FoodCategory getFoodCategoryEO() {
+		return foodCategoryEO;
+	}
+	public void setFoodCategoryEO(FoodCategory foodCategoryEO) {
+		this.foodCategoryEO = foodCategoryEO;
+	}
+	public Long getFoodCategoryId() {
+		return foodCategoryId;
+	}
+	public void setFoodCategoryId(Long foodCategoryId) {
+		this.foodCategoryId = foodCategoryId;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	
+	
 }

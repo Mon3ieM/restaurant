@@ -4,18 +4,20 @@ package com.restaurant.model.eo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-
-
-
+import javax.persistence.SequenceGenerator;
 
 @Entity
+@SequenceGenerator(name = "Clients_Seq_Gen", sequenceName = "Clients_SEQ",
+allocationSize = 1, initialValue = 1)
 public class Clients {
     private String address;
     @Column(name = "BLOCKED_REASON")
     private String blockedReason;
     @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Clients_Seq_Gen")
     @Id
     private Long id;
     @Column(name = "IS_ACTIVE")

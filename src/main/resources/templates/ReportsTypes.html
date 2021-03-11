@@ -1,0 +1,51 @@
+<html dir="rtl" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>شلتوت</title>
+<link rel="stylesheet" href="resources\css\bootstrap.min.css"
+	type="text/css" />
+<link href="resources\css\styles.css" rel="stylesheet" type="text/css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body class="indexBody">
+	<!-- header -->
+	<nav class="mainHeader">
+		<div class="leftblock">
+				<p class="label1" style="color: white;">اسم المستخدم</p>
+				<p class="label1" style="color: white;">اسم المستخدم</p>			
+		</div>
+		<div id="logoBG">
+			<img src="resources/images/Rectangle1.png" />
+		</div>
+		<div id="logo">
+		<a th:href="@{'/HomePage'}"> <img src="resources/images/logo.png" /></a>
+		</div>
+		<div id="systemnamebg_0">
+			<p class="systemTitle">دوق واحكم بنفسك</p>
+		</div>
+
+	</nav>
+	<div id="centerblock">
+		<div class="container-fluid">
+	
+			<div class="row">		
+				<div class="card chartBlock">
+					<img src="resources/images/TakeAway.jpg">
+					<a th:href="@{'/ReportPageFilter/' + ${1}}"><h3 class="label2">الديليفري</h3></a>
+				</div>
+				<div class="card chartBlock">
+					<img src="resources/images/TakeAway.jpg">
+					<a th:href="@{'/ReportPageFilter/' + ${2}}"><h3 class="label2">الكاشير</h3></a>
+				</div>
+				<div class="card chartBlock">
+					<img src="resources/images/TakeAway.jpg">
+					<a th:href="@{'/ReportPageFilter/' + ${3}}"><h3 class="label2">شامل</h3></a>
+				</div>
+					<div class="card chartBlock">
+					<img src="resources/images/TakeAway.jpg">
+					<a th:href="@{'/ReportPageFilter/' + ${4}}"><h3 class="label2">تقرير يومي</h3></a>
+				</div>
+			</div>
+</body>
+</html>
